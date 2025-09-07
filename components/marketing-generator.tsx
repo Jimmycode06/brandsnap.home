@@ -28,7 +28,7 @@ export function MarketingGenerator() {
   const dropRef = useRef<HTMLLabelElement | null>(null)
 
   const maxFiles = 3
-  const acceptTypes = /^(image\/(png|jpg|jpeg|webp))$/
+  const acceptTypes = useMemo(() => /^(image\/(png|jpg|jpeg|webp))$/, [])
   const maxSizeMb = 15
 
   const handleAddFiles = useCallback((files: FileList | null) => {

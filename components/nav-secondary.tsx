@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from 'react'
-import Link from 'next/link'
+// Use anchor to avoid typedRoutes constraints for placeholder URLs
 import { cn } from '@/lib/utils'
 
 type Item = { title: string; url: string; icon?: React.ComponentType<{ className?: string }> }
@@ -15,13 +15,13 @@ export function NavSecondary({ items, className }: { items: Item[]; className?: 
           const Icon = item.icon
           return (
             <li key={item.title}>
-              <Link
+              <a
                 href={item.url}
                 className={cn('flex items-center gap-2 rounded-md px-2 py-2 text-sm hover:bg-muted text-muted-foreground')}
               >
                 {Icon ? <Icon className="h-4 w-4" /> : null}
                 <span>{item.title}</span>
-              </Link>
+              </a>
             </li>
           )
         })}
