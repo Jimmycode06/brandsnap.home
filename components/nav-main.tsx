@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from 'react'
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 
@@ -24,7 +23,7 @@ export function NavMain({ items }: { items: Item[] }) {
           const active = item.isActive ?? pathname === item.url
           return (
             <li key={item.title}>
-              <Link
+              <a
                 href={item.url}
                 className={cn(
                   'flex items-center gap-2 rounded-md px-2 py-2 text-sm hover:bg-muted',
@@ -33,17 +32,17 @@ export function NavMain({ items }: { items: Item[] }) {
               >
                 {Icon ? <Icon className="h-4 w-4" /> : null}
                 <span>{item.title}</span>
-              </Link>
+              </a>
               {item.items && item.items.length > 0 && (
                 <ul className="mt-1 ml-6 space-y-1">
                   {item.items.map((sub) => (
                     <li key={sub.title}>
-                      <Link
+                      <a
                         href={sub.url}
                         className={cn('block rounded-md px-2 py-1.5 text-xs text-muted-foreground hover:bg-muted')}
                       >
                         {sub.title}
-                      </Link>
+                      </a>
                     </li>
                   ))}
                 </ul>
