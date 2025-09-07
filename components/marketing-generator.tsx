@@ -31,6 +31,41 @@ export function MarketingGenerator() {
   const acceptTypes = useMemo(() => /^(image\/(png|jpg|jpeg|webp))$/, [])
   const maxSizeMb = 15
 
+  async function postJson<T = any>(url: string, payload: any, opts: { retries?: number; timeoutMs?: number } = {}): Promise<T> {
+    const retries = opts.retries ?? 2
+    const timeoutMs = opts.timeoutMs ?? 15000
+    let lastError: any
+    for (let attempt = 0; attempt <= retries; attempt++) {
+      const controller = new AbortController()
+      const to = setTimeout(() => controller.abort(), timeoutMs)
+      try {
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          cache: 'no-store',
+          signal: controller.signal,
+        })
+        clearTimeout(to)
+        let data: any = null
+        try { data = await res.json() } catch {}
+        if (!res.ok) {
+          lastError = new Error(data?.error || `HTTP ${res.status}`)
+          // Retry only on network/5xx
+          if (res.status >= 500 && attempt < retries) continue
+          throw lastError
+        }
+        return data as T
+      } catch (err) {
+        clearTimeout(to)
+        lastError = err
+        if (attempt < retries) continue
+        throw lastError
+      }
+    }
+    throw lastError
+  }
+
   const handleAddFiles = useCallback((files: FileList | null) => {
     if (!files) return
     const next: File[] = []
@@ -101,23 +136,22 @@ export function MarketingGenerator() {
     try {
       // 1) Try server-side image generation via /api/genai/image
       try {
-        const res = await fetch('/api/genai/image', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
+        const data = await postJson<{ image?: string }>(
+          '/api/genai/image',
+          {
             prompt: prompt || 'Generate a social-ready composition',
             images: mediaPreviews.map((dataUrl) => ({ dataUrl })),
-          }),
-        })
-        if (res.ok) {
-          const data = await res.json()
-          if (data?.image && typeof data.image === 'string') {
-            setResultUrl(data.image)
-            return
-          }
+          },
+          { retries: 2, timeoutMs: 20000 },
+        )
+        if (data?.image && typeof data.image === 'string') {
+          setResultUrl(data.image)
+          return
         }
-      } catch (_) {
-        // Ignore and fallback to local canvas preview
+      } catch (e: any) {
+        // Fallback to local canvas preview
+        // Also surface a soft message so l’utilisateur sait que l’IA a été ignorée
+        console.warn('Image API failed, fallback to canvas:', e?.message || e)
       }
 
       // 2) Fallback local canvas preview
@@ -125,15 +159,10 @@ export function MarketingGenerator() {
       let serverText = ''
       if (prompt.trim()) {
         try {
-          const res = await fetch('/api/genai', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ prompt }),
-          })
-          const data = await res.json()
+          const data = await postJson<{ text?: string }>('/api/genai', { prompt }, { retries: 2, timeoutMs: 12000 })
           if (data?.text) serverText = String(data.text)
         } catch (e) {
-          // ignore network/genai errors for preview
+          // ignore; fallback continues
         }
       }
       const canvas = document.createElement('canvas')
@@ -248,7 +277,7 @@ export function MarketingGenerator() {
       const url = canvas.toDataURL('image/png')
       setResultUrl(url)
     } catch (e) {
-      setError('Erreur lors de la génération de l\'aperçu')
+      setError("Network issue while generating preview. Please try again.")
     } finally {
       setIsGenerating(false)
     }

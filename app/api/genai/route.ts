@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server'
 import { getModel } from '@/lib/genai'
 
+export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export async function POST(req: Request) {
   try {
     const { prompt } = await req.json()

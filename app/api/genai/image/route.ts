@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server'
 import { GoogleGenAI } from '@google/genai'
 
+export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 type InlineImage = { dataUrl?: string; base64?: string; mimeType?: string }
 
 function dataUrlToParts(images?: InlineImage[]) {
