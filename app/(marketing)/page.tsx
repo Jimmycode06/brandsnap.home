@@ -161,7 +161,7 @@ export default function LandingPage() {
       <section id="showcase" className="py-20 bg-muted/30">
         <div className="container max-w-6xl mx-auto px-4">
           <div className="text-center space-y-4 mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold">See what's possible</h2>
+            <h2 className="text-3xl md:text-4xl font-bold">See what&apos;s possible</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Examples of ad creatives generated with Brandsnap.
             </p>
