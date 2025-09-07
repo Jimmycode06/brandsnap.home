@@ -61,7 +61,7 @@ export function MarketingGenerator() {
     })
     setError(null)
     setResultUrl(null)
-  }, [mediaFiles.length])
+  }, [mediaFiles.length, acceptTypes, maxSizeMb])
 
   const onInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     handleAddFiles(e.target.files)
