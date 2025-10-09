@@ -1,17 +1,30 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { AuthButton } from '@/components/auth-button'
 import { PricingButton } from '@/components/pricing-button'
+import { useAuth } from '@/contexts/auth-context'
+import { useCredits } from '@/contexts/credit-context'
 import { ArrowRight, CheckCircle, Clock, TrendingUp, Zap, ChevronLeft, ChevronRight, Upload, MessageSquare, Download, Home } from 'lucide-react'
 
 export default function HomeStagingLandingPage() {
   const [beforeAfterSlider, setBeforeAfterSlider] = useState(50)
   const [renovationSlider, setRenovationSlider] = useState(50)
+  const { user, loading: authLoading } = useAuth()
+  const { credits, isLoading: creditsLoading } = useCredits()
+  const router = useRouter()
+
+  // Redirection automatique pour les utilisateurs connectés avec des crédits
+  useEffect(() => {
+    if (!authLoading && !creditsLoading && user && credits > 0) {
+      router.push('/home-staging')
+    }
+  }, [user, credits, authLoading, creditsLoading, router])
 
   return (
     <div className="min-h-screen bg-background">
