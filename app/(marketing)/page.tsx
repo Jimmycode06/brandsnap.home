@@ -441,7 +441,7 @@ export default function HomeStagingLandingPage() {
                   </li>
                 </ul>
                 <PricingButton 
-                  priceId={process.env.NEXT_PUBLIC_STRIPE_PROFESSIONAL_PRICE_ID || ''}
+                  priceId={process.env.NEXT_PUBLIC_STRIPE_PROFESSIONAL_PRICE_ID || 'price_1SGPWYDS5DrKB4SxqyQrEADN'}
                   label="Commencer"
                   variant="outline"
                 />
