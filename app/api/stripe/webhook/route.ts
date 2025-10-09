@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
       }
 
       case 'invoice.payment_succeeded': {
-        const invoice = event.data.object as Stripe.Invoice
+        const invoice = event.data.object as any
         const subscriptionId = invoice.subscription as string
 
         if (!subscriptionId) break
@@ -109,7 +109,7 @@ export async function POST(req: NextRequest) {
       }
 
       case 'customer.subscription.updated': {
-        const subscription = event.data.object as Stripe.Subscription
+        const subscription = event.data.object as any
         const customerId = subscription.customer as string
 
         const { data: profile } = await supabase
@@ -124,7 +124,7 @@ export async function POST(req: NextRequest) {
           .from('user_profiles')
           .update({
             subscription_status: subscription.status,
-            current_period_end: new Date((subscription as any).current_period_end * 1000).toISOString(),
+            current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
           })
           .eq('id', profile.id)
 
@@ -133,7 +133,7 @@ export async function POST(req: NextRequest) {
       }
 
       case 'customer.subscription.deleted': {
-        const subscription = event.data.object as Stripe.Subscription
+        const subscription = event.data.object as any
         const customerId = subscription.customer as string
 
         const { data: profile } = await supabase
