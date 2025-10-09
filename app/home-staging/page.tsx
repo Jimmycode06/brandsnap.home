@@ -21,23 +21,23 @@ import Link from 'next/link'
 import { CreditDisplay } from '@/components/credit-display'
 
 export default function Page() {
-  const { user } = useAuth()
-  const { credits, isLoading } = useCredits()
+  const { user, loading: authLoading } = useAuth()
+  const { credits, isLoading: creditsLoading } = useCredits()
   const router = useRouter()
 
   // Debug logs
-  console.log('Page render - user:', user?.email, 'credits:', credits, 'isLoading:', isLoading)
+  console.log('Page render - user:', user?.email, 'credits:', credits, 'authLoading:', authLoading, 'creditsLoading:', creditsLoading)
 
-  // Rediriger vers l'accueil si pas connecté
+  // Rediriger vers l'accueil si pas connecté (attendre que l'auth soit chargé)
   useEffect(() => {
-    console.log('useEffect triggered - user:', user?.email, 'isLoading:', isLoading)
-    if (!isLoading && !user) {
+    console.log('useEffect triggered - user:', user?.email, 'authLoading:', authLoading, 'creditsLoading:', creditsLoading)
+    if (!authLoading && !creditsLoading && !user) {
       console.log('Redirecting to home - no user')
       router.push('/')
     }
-  }, [user, isLoading, router])
+  }, [user, authLoading, creditsLoading, router])
 
-  if (isLoading) {
+  if (authLoading || creditsLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <Loader2 className="h-8 w-8 animate-spin text-green-400" />
