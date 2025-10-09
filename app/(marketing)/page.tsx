@@ -10,6 +10,7 @@ import { ArrowRight, CheckCircle, Clock, TrendingUp, Zap, ChevronLeft, ChevronRi
 
 export default function HomeStagingLandingPage() {
   const [beforeAfterSlider, setBeforeAfterSlider] = useState(50)
+  const [renovationSlider, setRenovationSlider] = useState(50)
 
   return (
     <div className="min-h-screen bg-background">
@@ -42,11 +43,11 @@ export default function HomeStagingLandingPage() {
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <div className="space-y-4">
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                Transformez vos biens vides en intérieurs{' '}
-                <span className="text-green-400">irrésistibles</span>.
+                Transformez vos biens avec l&apos;IA :{' '}
+                <span className="text-green-400">Home Staging & Rénovation</span>
               </h1>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Home staging virtuel par IA. Uploadez vos photos de pièces vides, décrivez le style souhaité, et obtenez des visuels professionnels en quelques secondes.
+                Meublez virtuellement vos pièces vides ou visualisez vos projets de rénovation. Uploadez vos photos, décrivez vos idées, et obtenez des visuels professionnels en quelques secondes.
               </p>
             </div>
             
@@ -64,11 +65,11 @@ export default function HomeStagingLandingPage() {
         </div>
       </section>
 
-      {/* Before/After Demo Section */}
+      {/* Before/After Demo Section - Home Staging */}
       <section id="demo" className="py-20 bg-muted/30">
         <div className="container max-w-6xl mx-auto px-4">
           <div className="text-center space-y-4 mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold">Voyez la différence</h2>
+            <h2 className="text-3xl md:text-4xl font-bold">Home Staging Virtuel</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Transformez une pièce vide en un intérieur meublé et décoré
             </p>
@@ -153,7 +154,104 @@ export default function HomeStagingLandingPage() {
           <div className="text-center mt-8">
               <Link href="/home-staging">
               <Button size="lg">
-                Transformer mes photos maintenant
+                Essayer le Home Staging
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Before/After Demo Section - Rénovation */}
+      <section className="py-20">
+        <div className="container max-w-6xl mx-auto px-4">
+          <div className="text-center space-y-4 mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold">Visualisation de Rénovation</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Projetez-vous dans votre bien rénové avant même de commencer les travaux
+            </p>
+          </div>
+
+          <Card className="overflow-hidden max-w-4xl mx-auto">
+            <CardContent className="p-0">
+              <div className="relative w-full h-[400px] bg-gray-100">
+                {/* Image de fond */}
+                <img 
+                  src="/renove-after.jpg" 
+                  alt="Pièce rénovée"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                
+                {/* Image superposée avec clip */}
+                <div 
+                  className="absolute inset-0"
+                  style={{ clipPath: `inset(0 ${100 - renovationSlider}% 0 0)` }}
+                >
+                  <img 
+                    src="/renove.jpg" 
+                    alt="Pièce avant rénovation"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                {/* Curseur */}
+                <div 
+                  className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize shadow-xl z-[20]"
+                  style={{ left: `${renovationSlider}%` }}
+                  onMouseDown={(e) => {
+                    const container = e.currentTarget.parentElement
+                    const handleMouseMove = (moveEvent: MouseEvent) => {
+                      if (!container) return
+                      const rect = container.getBoundingClientRect()
+                      const x = Math.max(0, Math.min(moveEvent.clientX - rect.left, rect.width))
+                      setRenovationSlider((x / rect.width) * 100)
+                    }
+                    const handleMouseUp = () => {
+                      document.removeEventListener('mousemove', handleMouseMove)
+                      document.removeEventListener('mouseup', handleMouseUp)
+                    }
+                    document.addEventListener('mousemove', handleMouseMove)
+                    document.addEventListener('mouseup', handleMouseUp)
+                  }}
+                  onTouchStart={(e) => {
+                    const container = e.currentTarget.parentElement
+                    const handleTouchMove = (moveEvent: TouchEvent) => {
+                      if (!container) return
+                      const rect = container.getBoundingClientRect()
+                      const x = Math.max(0, Math.min(moveEvent.touches[0].clientX - rect.left, rect.width))
+                      setRenovationSlider((x / rect.width) * 100)
+                    }
+                    const handleTouchEnd = () => {
+                      document.removeEventListener('touchmove', handleTouchMove)
+                      document.removeEventListener('touchend', handleTouchEnd)
+                    }
+                    document.addEventListener('touchmove', handleTouchMove)
+                    document.addEventListener('touchend', handleTouchEnd)
+                  }}
+                >
+                  <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-white rounded-full p-2 shadow-lg">
+                    <div className="flex gap-1">
+                      <ChevronLeft className="h-4 w-4 text-gray-700" />
+                      <ChevronRight className="h-4 w-4 text-gray-700" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Labels */}
+                <div className="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 rounded text-sm font-medium z-[10]">
+                  Avant
+                </div>
+                <div className="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded text-sm font-medium z-[10]">
+                  Après
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <div className="text-center mt-8">
+              <Link href="/home-staging">
+              <Button size="lg" variant="outline">
+                Visualiser ma rénovation
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
