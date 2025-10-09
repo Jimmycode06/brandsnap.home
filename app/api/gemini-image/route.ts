@@ -86,16 +86,18 @@ export async function GET(req: Request) {
       logs: true
     })
 
-    if (status.status === 'COMPLETED' && status.output && status.output.images) {
-      return NextResponse.json({ 
-        status: 'COMPLETED', 
-        image_url: status.output.images[0].url,
-        description: status.output.description || ''
-      })
+    if (status.status === 'COMPLETED') {
+      const s: any = status
+      const imageUrl: string | undefined = s?.output?.images?.[0]?.url || s?.data?.images?.[0]?.url
+      const description: string = s?.output?.description || s?.data?.description || ''
+      if (imageUrl) {
+        return NextResponse.json({ status: 'COMPLETED', image_url: imageUrl, description })
+      }
+      return NextResponse.json({ status: 'COMPLETED', error: 'No image generated' })
     }
 
     // Return the typed status directly (IN_PROGRESS | IN_QUEUE)
-    return NextResponse.json({ status: status.status, logs: status.logs })
+    return NextResponse.json({ status: status.status, logs: (status as any).logs })
   } catch (error: any) {
     console.error('Fal.ai Gemini Polling Error:', error)
     return NextResponse.json({ 
