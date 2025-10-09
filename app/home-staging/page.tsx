@@ -76,7 +76,7 @@ export default function Page() {
                   Voir tous les plans
                 </Button>
               </Link>
-              <Link href="/#pricing">
+              <Link href="/upgrade">
                 <Button size="lg" className="bg-gradient-to-r from-green-500 to-green-600">
                   Upgrade vers Professional (100 crédits)
                 </Button>
