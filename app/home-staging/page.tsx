@@ -22,7 +22,7 @@ import { CreditDisplay } from '@/components/credit-display'
 
 export default function Page() {
   const { user, loading: authLoading } = useAuth()
-  const { credits, isLoading: creditsLoading } = useCredits()
+  const { credits, isLoading: creditsLoading, canAfford } = useCredits()
   const router = useRouter()
 
   // Rediriger vers l'accueil si pas connecté (attendre que l'auth soit chargé)
@@ -44,8 +44,8 @@ export default function Page() {
     return null
   }
 
-  // Si pas de crédits, afficher un message avec CTA vers pricing
-  if (credits === 0) {
+  // Si pas assez de crédits, afficher un message avec CTA vers pricing
+  if (!canAfford(1)) {
     return (
       <SidebarProvider>
         <AppSidebar />
