@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { 
   Upload,
@@ -14,16 +15,22 @@ import {
   Loader2,
   AlertCircle,
   X,
-  Plus
+  Plus,
+  Zap
 } from 'lucide-react'
+import { useCredits, CREDIT_COSTS } from '@/contexts/credit-context'
 
 export function MarketingGenerator() {
   const [mediaFiles, setMediaFiles] = useState<File[]>([])
   const [mediaPreviews, setMediaPreviews] = useState<string[]>([])
   const [prompt, setPrompt] = useState('')
+  const [aspectRatio, setAspectRatio] = useState<'21:9' | '1:1' | '4:3' | '3:2' | '2:3' | '5:4' | '4:5' | '3:4' | '16:9' | '9:16'>('1:1')
   const [isGenerating, setIsGenerating] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [resultUrl, setResultUrl] = useState<string | null>(null)
+  
+  const { credits, deductCredits, canAfford } = useCredits()
+  const creditCost = CREDIT_COSTS['marketing-generator']
 
   const dropRef = useRef<HTMLLabelElement | null>(null)
 
@@ -31,40 +38,6 @@ export function MarketingGenerator() {
   const acceptTypes = useMemo(() => /^(image\/(png|jpg|jpeg|webp))$/, [])
   const maxSizeMb = 15
 
-  async function postJson<T = any>(url: string, payload: any, opts: { retries?: number; timeoutMs?: number } = {}): Promise<T> {
-    const retries = opts.retries ?? 2
-    const timeoutMs = opts.timeoutMs ?? 15000
-    let lastError: any
-    for (let attempt = 0; attempt <= retries; attempt++) {
-      const controller = new AbortController()
-      const to = setTimeout(() => controller.abort(), timeoutMs)
-      try {
-        const res = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-          cache: 'no-store',
-          signal: controller.signal,
-        })
-        clearTimeout(to)
-        let data: any = null
-        try { data = await res.json() } catch {}
-        if (!res.ok) {
-          lastError = new Error(data?.error || `HTTP ${res.status}`)
-          // Retry only on network/5xx
-          if (res.status >= 500 && attempt < retries) continue
-          throw lastError
-        }
-        return data as T
-      } catch (err) {
-        clearTimeout(to)
-        lastError = err
-        if (attempt < retries) continue
-        throw lastError
-      }
-    }
-    throw lastError
-  }
 
   const handleAddFiles = useCallback((files: FileList | null) => {
     if (!files) return
@@ -131,27 +104,48 @@ export function MarketingGenerator() {
       setError('Ajoutez au moins un média')
       return
     }
+    
+    // Check if user has enough credits
+    if (!canAfford(creditCost)) {
+      setError(`Insufficient credits. You need ${creditCost} credits to generate an image.`)
+      return
+    }
+    
+    // Deduct credits before generation
+    const creditDeducted = await deductCredits(creditCost)
+    if (!creditDeducted) {
+      setError(`Failed to deduct ${creditCost} credits. Please try again.`)
+      return
+    }
+    
     setIsGenerating(true)
     setError(null)
     try {
-      // 1) Try server-side image generation via /api/genai/image
+      // 1) Try Fal.ai Gemini image generation
       try {
-        const data = await postJson<{ image?: string }>(
-          '/api/genai/image',
-          {
-            prompt: prompt || 'Generate a social-ready composition',
-            images: mediaPreviews.map((dataUrl) => ({ dataUrl })),
+        const response = await fetch('/api/gemini-image', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
           },
-          { retries: 2, timeoutMs: 20000 },
-        )
-        if (data?.image && typeof data.image === 'string') {
-          setResultUrl(data.image)
+          body: JSON.stringify({
+            prompt: prompt || 'Generate a social-ready composition',
+            image_urls: mediaPreviews,
+            num_images: 1
+          }),
+        })
+
+        const data = await response.json()
+
+        if (response.ok && data.success && data.image_url) {
+          setResultUrl(data.image_url)
           return
+        } else {
+          console.warn('Fal.ai Gemini API failed:', data.error)
         }
       } catch (e: any) {
         // Fallback to local canvas preview
-        // Also surface a soft message so l’utilisateur sait que l’IA a été ignorée
-        console.warn('Image API failed, fallback to canvas:', e?.message || e)
+        console.warn('Fal.ai Gemini API failed, fallback to canvas:', e?.message || e)
       }
 
       // 2) Fallback local canvas preview
@@ -159,8 +153,15 @@ export function MarketingGenerator() {
       let serverText = ''
       if (prompt.trim()) {
         try {
-          const data = await postJson<{ text?: string }>('/api/genai', { prompt }, { retries: 2, timeoutMs: 12000 })
-          if (data?.text) serverText = String(data.text)
+          const response = await fetch('/api/genai', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt }),
+          })
+          if (response.ok) {
+            const data = await response.json()
+            if (data?.text) serverText = String(data.text)
+          }
         } catch (e) {
           // ignore; fallback continues
         }
@@ -281,7 +282,7 @@ export function MarketingGenerator() {
     } finally {
       setIsGenerating(false)
     }
-  }, [mediaPreviews, prompt, dims])
+  }, [mediaPreviews, prompt, aspectRatio, dims])
 
   const handleDownload = useCallback(() => {
     if (!resultUrl) return
@@ -294,16 +295,17 @@ export function MarketingGenerator() {
   }, [resultUrl])
 
   return (
-    <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Upload className="h-5 w-5" />
-            1. Add media (PNG, JPG, JPEG, WEBP)
-          </CardTitle>
-          <CardDescription>Drag and drop up to {maxFiles} files.</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-6">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
+      {/* Input Section - Left Side */}
+      <div className="space-y-6 flex flex-col">
+        <Card className="flex-1">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Upload className="h-5 w-5 text-green-500" />
+              Input
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
           {mediaPreviews.length === 0 && (
             <label
               ref={dropRef}
@@ -366,6 +368,7 @@ export function MarketingGenerator() {
           )}
 
           {/* Describe your visual (merged into the same card) */}
+          {/* Text Input */}
           <div className="space-y-2">
             <Label htmlFor="prompt">Text</Label>
             <textarea
@@ -377,12 +380,38 @@ export function MarketingGenerator() {
               className="w-full rounded-md border bg-background px-3 py-2 text-sm outline-none ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             />
           </div>
-          <div>
+
+          {/* Aspect Ratio Selector */}
+          <div className="space-y-2">
+            <Label>Aspect Ratio</Label>
+            <Select value={aspectRatio} onValueChange={(value: any) => setAspectRatio(value)}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select aspect ratio" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="21:9">Ultra Wide (21:9)</SelectItem>
+                <SelectItem value="16:9">Landscape (16:9)</SelectItem>
+                <SelectItem value="9:16">Portrait (9:16)</SelectItem>
+                <SelectItem value="4:3">Standard (4:3)</SelectItem>
+                <SelectItem value="3:4">Vertical (3:4)</SelectItem>
+                <SelectItem value="3:2">Photo (3:2)</SelectItem>
+                <SelectItem value="2:3">Vertical Photo (2:3)</SelectItem>
+                <SelectItem value="5:4">Classic (5:4)</SelectItem>
+                <SelectItem value="4:5">Portrait Classic (4:5)</SelectItem>
+                <SelectItem value="1:1">Square (1:1)</SelectItem>
+              </SelectContent>
+            </Select>
+            <p className="text-xs text-muted-foreground">
+              Choose the aspect ratio for your generated image.
+            </p>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex gap-2">
             <Button
               onClick={handleGenerate}
-              disabled={isGenerating || mediaPreviews.length === 0}
-              size="default"
-              className="bg-[hsl(141.9_69.2%_58%)] hover:bg-[hsl(141.9_69.2%_52%)] text-white focus-visible:ring-[hsl(141.9_69.2%_58%)] disabled:opacity-100 shadow"
+              disabled={isGenerating || !canAfford(creditCost)}
+              className="flex-1 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600"
             >
               {isGenerating ? (
                 <>
@@ -391,56 +420,69 @@ export function MarketingGenerator() {
                 </>
               ) : (
                 <>
-                  <Wand2 className="mr-2 h-4 w-4" />
-                  Generate image
+                  Generate <Zap className="ml-1 h-4 w-4" /> 10
                 </>
               )}
             </Button>
           </div>
+          
+
+          {/* Error Display */}
+          {error && (
+            <div className="p-3 rounded-md bg-destructive/10 border border-destructive/20 text-destructive">
+              {error}
+            </div>
+          )}
         </CardContent>
       </Card>
+      </div>
 
-      {error && (
-        <Alert variant="destructive">
-          <AlertCircle className="h-4 w-4" />
-          <AlertDescription>{error}</AlertDescription>
-        </Alert>
-      )}
-
-      {/* Preview block just below */}
-      <div>
-        <Card>
+      {/* Result Section - Right Side */}
+      <div className="flex flex-col">
+        <Card className="flex-1">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <ImageIcon className="h-5 w-5" />
-              Generated preview
-            </CardTitle>
-            <CardDescription>Always visible preview.</CardDescription>
+            <div className="flex items-center justify-between">
+              <CardTitle>Result</CardTitle>
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-muted-foreground">
+                  {isGenerating ? 'Generating...' : resultUrl ? 'Completed' : ''}
+                </span>
+              </div>
+            </div>
           </CardHeader>
-          <CardContent className="space-y-4">
-            {resultUrl ? (
-              <div className="relative mx-auto w-full max-w-xl overflow-hidden rounded-md border bg-background">
-                <img
-                  src={resultUrl}
-                  alt="Result"
-                  className="h-auto w-full max-h-[600px] object-contain"
-                />
-                <Button
-                  onClick={handleDownload}
-                  size="sm"
-                  variant="outline"
-                  className="absolute right-2 top-2"
-                  aria-label="Download PNG"
-                >
-                  <Download className="mr-1 h-3.5 w-3.5" />
-                  PNG
-                </Button>
+          <CardContent className="flex flex-col">
+            <div className="flex flex-col space-y-4">
+              {/* Generated Image */}
+              {resultUrl ? (
+                <div className="relative rounded-lg overflow-hidden border bg-muted/20" style={{ height: '400px' }}>
+                  <img
+                    src={resultUrl}
+                    alt="Generated marketing image"
+                    className="w-full h-full object-contain"
+                  />
+                  <Button
+                    onClick={handleDownload}
+                    className="absolute top-2 right-2 h-8 w-8 p-0"
+                    size="sm"
+                    title="Download image"
+                  >
+                    <Download className="h-4 w-4" />
+                  </Button>
+                </div>
+              ) : (
+                <div className="rounded-lg border-2 border-dashed border-muted-foreground/20 flex items-center justify-center bg-muted/10" style={{ height: '400px' }}>
+                  <div className="text-center p-4">
+                    <ImageIcon className="h-12 w-12 text-muted-foreground mx-auto mb-2" />
+                    <p className="text-sm text-muted-foreground">No image generated yet</p>
+                  </div>
+                </div>
+              )}
+
+              {/* Cost Information */}
+              <div className="text-sm text-muted-foreground flex-shrink-0">
+                Powered by Fal.ai Gemini 2.5 Flash - AI marketing image generation.
               </div>
-            ) : (
-              <div className="mx-auto w-full max-w-xl rounded-md border-2 border-dashed bg-muted/20 text-muted-foreground p-6 text-center">
-                Preview will appear here after generation.
-              </div>
-            )}
+            </div>
           </CardContent>
         </Card>
       </div>

@@ -1,16 +1,13 @@
-import { AppSidebar } from '@/components/app-sidebar'
+import { AppSidebar } from '@/components/app-sidebar-home-staging'
 import {
   Breadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
-  BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
 import { Separator } from '@/components/ui/separator'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
-import { MarketingGenerator } from '@/components/marketing-generator'
-import { CreditDisplay } from '@/components/credit-display'
+import { HomeStagingGenerator } from '@/components/home-staging-generator'
 
 export default function Page() {
   return (
@@ -24,23 +21,22 @@ export default function Page() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Brandsnap Studio</BreadcrumbPage>
+                  <BreadcrumbPage>Home Staging Virtuel</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
           </div>
-          <div className="ml-auto">
-            <CreditDisplay />
-          </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
           <div className="flex-1 space-y-4">
-            <h2 className="text-3xl font-bold tracking-tight">Brandsnap Studio</h2>
-            <p className="text-sm text-muted-foreground">Generate stunning ad creatives in seconds with AI.</p>
-            <MarketingGenerator />
+            <h2 className="text-3xl font-bold tracking-tight">Home Staging Virtuel</h2>
+            <p className="text-sm text-muted-foreground">Transformez vos pièces vides en intérieurs meublés et décorés avec l'IA.</p>
+            <HomeStagingGenerator />
           </div>
         </div>
       </SidebarInset>
     </SidebarProvider>
   )
 }
+
+
