@@ -37,15 +37,12 @@ export function CreditProvider({ children }: { children: React.ReactNode }) {
 
         if (error) {
           console.error('Error loading credits:', error)
-          console.log('User ID:', user.id)
-          console.log('Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL)
           // Fallback to localStorage for demo
           const savedCredits = localStorage.getItem('brandsnap-credits')
           if (savedCredits) {
             setCredits(parseInt(savedCredits, 10))
           }
         } else {
-          console.log('Credits loaded successfully:', data?.credits)
           setCredits(data?.credits || 1000)
         }
       } catch (error) {
