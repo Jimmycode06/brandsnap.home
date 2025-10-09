@@ -38,11 +38,9 @@ export function CreditProvider({ children }: { children: React.ReactNode }) {
 
         if (error) {
           console.error('Error loading credits:', error)
-          // Fallback to localStorage for demo
-          const savedCredits = localStorage.getItem('brandsnap-credits')
-          if (savedCredits) {
-            setCredits(parseInt(savedCredits, 10))
-          }
+          // Clear localStorage and set to 0 for users without profile
+          localStorage.removeItem('brandsnap-credits')
+          setCredits(0)
         } else {
           // Si l'utilisateur a un plan actif mais pas de crédits, on les remet selon le plan
           if (data?.subscription_status === 'active' && data?.credits === 0) {
@@ -65,11 +63,9 @@ export function CreditProvider({ children }: { children: React.ReactNode }) {
         }
       } catch (error) {
         console.error('Error loading credits:', error)
-        // Fallback to localStorage for demo
-        const savedCredits = localStorage.getItem('brandsnap-credits')
-        if (savedCredits) {
-          setCredits(parseInt(savedCredits, 10))
-        }
+        // Clear localStorage and set to 0 for users without profile
+        localStorage.removeItem('brandsnap-credits')
+        setCredits(0)
       } finally {
         setIsLoading(false)
       }
@@ -78,12 +74,7 @@ export function CreditProvider({ children }: { children: React.ReactNode }) {
     loadUserCredits()
   }, [user])
 
-  // Save credits to localStorage as backup (for demo purposes)
-  useEffect(() => {
-    if (!isLoading && user) {
-      localStorage.setItem('brandsnap-credits', credits.toString())
-    }
-  }, [credits, isLoading, user])
+  // No longer saving to localStorage to avoid conflicts with Supabase data
 
   const deductCredits = async (amount: number): Promise<boolean> => {
     if (!user) return false
