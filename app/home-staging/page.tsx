@@ -63,18 +63,25 @@ export default function Page() {
               </Breadcrumb>
             </div>
           </header>
-          <div className="flex flex-1 flex-col items-center justify-center gap-4 p-4">
+          <div className="flex flex-1 flex-col items-center justify-center gap-6 p-4">
             <Alert variant="destructive" className="max-w-md">
               <AlertCircle className="h-4 w-4" />
               <AlertDescription>
-                Vous n&apos;avez plus de crédits. Choisissez un plan pour continuer à utiliser le générateur.
+                Vous n&apos;avez plus de crédits. Upgradez vers le plan Professional pour continuer !
               </AlertDescription>
             </Alert>
-            <Link href="/#pricing">
-              <Button size="lg" className="bg-gradient-to-r from-green-500 to-green-600">
-                Voir les plans
-              </Button>
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link href="/#pricing">
+                <Button size="lg" variant="outline">
+                  Voir tous les plans
+                </Button>
+              </Link>
+              <Link href="/#pricing">
+                <Button size="lg" className="bg-gradient-to-r from-green-500 to-green-600">
+                  Upgrade vers Professional (100 crédits)
+                </Button>
+              </Link>
+            </div>
           </div>
         </SidebarInset>
       </SidebarProvider>

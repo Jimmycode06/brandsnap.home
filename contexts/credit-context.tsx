@@ -42,24 +42,8 @@ export function CreditProvider({ children }: { children: React.ReactNode }) {
           localStorage.removeItem('brandsnap-credits')
           setCredits(0)
         } else {
-          // Si l'utilisateur a un plan actif mais pas de crédits, on les remet selon le plan
-          if (data?.subscription_status === 'active' && data?.credits === 0) {
-            const planCredits = {
-              starter: 30,
-              professional: 100,
-              enterprise: 999999
-            }
-            const defaultCredits = planCredits[data.plan as keyof typeof planCredits] || 0
-            setCredits(defaultCredits)
-            
-            // Mettre à jour Supabase avec les bons crédits
-            await supabase
-              .from('user_profiles')
-              .update({ credits: defaultCredits })
-              .eq('id', user.id)
-          } else {
-            setCredits(data?.credits || 0)
-          }
+          // Toujours utiliser les crédits de la base de données
+          setCredits(data?.credits || 0)
         }
       } catch (error) {
         console.error('Error loading credits:', error)
