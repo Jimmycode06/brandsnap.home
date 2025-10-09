@@ -16,7 +16,7 @@ interface CreditContextType {
 const CreditContext = createContext<CreditContextType | undefined>(undefined)
 
 export function CreditProvider({ children }: { children: React.ReactNode }) {
-  const [credits, setCredits] = useState(1000) // Default: 1000 credits
+  const [credits, setCredits] = useState(0) // Default: 0 credits
   const [isLoading, setIsLoading] = useState(true)
   const { user } = useAuth()
 
@@ -24,6 +24,7 @@ export function CreditProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const loadUserCredits = async () => {
       if (!user) {
+        setCredits(0)
         setIsLoading(false)
         return
       }
@@ -31,7 +32,7 @@ export function CreditProvider({ children }: { children: React.ReactNode }) {
       try {
         const { data, error } = await supabase
           .from('user_profiles')
-          .select('credits')
+          .select('credits, plan, subscription_status')
           .eq('id', user.id)
           .single()
 
@@ -43,7 +44,24 @@ export function CreditProvider({ children }: { children: React.ReactNode }) {
             setCredits(parseInt(savedCredits, 10))
           }
         } else {
-          setCredits(data?.credits || 1000)
+          // Si l'utilisateur a un plan actif mais pas de crédits, on les remet selon le plan
+          if (data?.subscription_status === 'active' && data?.credits === 0) {
+            const planCredits = {
+              starter: 30,
+              professional: 100,
+              enterprise: 999999
+            }
+            const defaultCredits = planCredits[data.plan as keyof typeof planCredits] || 0
+            setCredits(defaultCredits)
+            
+            // Mettre à jour Supabase avec les bons crédits
+            await supabase
+              .from('user_profiles')
+              .update({ credits: defaultCredits })
+              .eq('id', user.id)
+          } else {
+            setCredits(data?.credits || 0)
+          }
         }
       } catch (error) {
         console.error('Error loading credits:', error)
