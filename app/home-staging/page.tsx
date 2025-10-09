@@ -44,47 +44,19 @@ export default function Page() {
     return null
   }
 
-  // Si pas assez de crédits, afficher un message avec CTA vers pricing
+  // Si pas assez de crédits, rediriger directement vers la page d'upgrade
+  useEffect(() => {
+    if (!authLoading && !creditsLoading && user && !canAfford(1)) {
+      router.push('/upgrade')
+    }
+  }, [user, credits, authLoading, creditsLoading, canAfford, router])
+
+  // Si pas assez de crédits, afficher un loader pendant la redirection
   if (!canAfford(1)) {
     return (
-      <SidebarProvider>
-        <AppSidebar />
-        <SidebarInset>
-          <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
-            <div className="flex items-center gap-2">
-              <SidebarTrigger className="-ml-1" />
-              <Separator orientation="vertical" className="mr-2 data-[orientation=vertical]:h-4" />
-              <Breadcrumb>
-                <BreadcrumbList>
-                  <BreadcrumbItem>
-                    <BreadcrumbPage>Home Staging Virtuel</BreadcrumbPage>
-                  </BreadcrumbItem>
-                </BreadcrumbList>
-              </Breadcrumb>
-            </div>
-          </header>
-          <div className="flex flex-1 flex-col items-center justify-center gap-6 p-4">
-            <Alert variant="destructive" className="max-w-md">
-              <AlertCircle className="h-4 w-4" />
-              <AlertDescription>
-                Vous n&apos;avez plus de crédits. Upgradez vers le plan Professional pour continuer !
-              </AlertDescription>
-            </Alert>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/#pricing">
-                <Button size="lg" variant="outline">
-                  Voir tous les plans
-                </Button>
-              </Link>
-              <Link href="/upgrade">
-                <Button size="lg" className="bg-gradient-to-r from-green-500 to-green-600">
-                  Upgrade vers Professional (100 crédits)
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </SidebarInset>
-      </SidebarProvider>
+      <div className="flex items-center justify-center min-h-screen">
+        <Loader2 className="h-8 w-8 animate-spin text-green-400" />
+      </div>
     )
   }
 
