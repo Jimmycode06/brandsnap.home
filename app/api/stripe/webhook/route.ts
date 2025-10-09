@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
             subscription_status: 'active',
             plan: plan,
             credits: credits,
-            current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
+            current_period_end: new Date((subscription as any).current_period_end * 1000).toISOString(),
           })
           .eq('id', userId)
 
@@ -124,7 +124,7 @@ export async function POST(req: NextRequest) {
           .from('user_profiles')
           .update({
             subscription_status: subscription.status,
-            current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
+            current_period_end: new Date((subscription as any).current_period_end * 1000).toISOString(),
           })
           .eq('id', profile.id)
 
