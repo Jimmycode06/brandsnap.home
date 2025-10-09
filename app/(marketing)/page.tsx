@@ -242,7 +242,7 @@ export default function HomeStagingLandingPage() {
                 <div className="space-y-2">
                   <MessageSquare className="w-8 h-8 text-green-400 mx-auto" />
                   <h3 className="text-xl font-semibold">Décrivez le style</h3>
-                  <p className="text-muted-foreground">Ex: "Salon moderne avec canapé gris et plantes"</p>
+                  <p className="text-muted-foreground">Ex: &quot;Salon moderne avec canapé gris et plantes&quot;</p>
                 </div>
               </div>
               
@@ -376,7 +376,7 @@ export default function HomeStagingLandingPage() {
             <CardContent className="p-12 text-center space-y-6">
               <h2 className="text-3xl md:text-4xl font-bold">Prêt à transformer vos annonces ?</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                Rejoignez des centaines d'agences immobilières qui utilisent Brandsnap pour valoriser leurs biens.
+                Rejoignez des centaines d&apos;agences immobilières qui utilisent Brandsnap pour valoriser leurs biens.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <AuthButton />
