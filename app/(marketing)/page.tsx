@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { AuthButton } from '@/components/auth-button'
+import { PricingButton } from '@/components/pricing-button'
 import { ArrowRight, CheckCircle, Clock, TrendingUp, Zap, ChevronLeft, ChevronRight, Upload, MessageSquare, Download, Home } from 'lucide-react'
 
 export default function HomeStagingLandingPage() {
@@ -400,11 +401,10 @@ export default function HomeStagingLandingPage() {
                     <span className="text-sm">Support email</span>
                   </li>
                 </ul>
-                <Link href="/home-staging" className="block">
-                  <Button className="w-full">
-                    Commencer
-                  </Button>
-                </Link>
+                <PricingButton 
+                  priceId={process.env.NEXT_PUBLIC_STRIPE_STARTER_PRICE_ID || 'price_1SGNchDS5DrKB4SxrahLyTQb'}
+                  label="Commencer"
+                />
               </CardContent>
             </Card>
 
@@ -427,11 +427,11 @@ export default function HomeStagingLandingPage() {
                     <span className="text-sm">Support prioritaire</span>
                   </li>
                 </ul>
-                <Link href="/home-staging" className="block">
-                  <Button variant="outline" className="w-full">
-                    Commencer
-                  </Button>
-                </Link>
+                <PricingButton 
+                  priceId={process.env.NEXT_PUBLIC_STRIPE_PROFESSIONAL_PRICE_ID || ''}
+                  label="Commencer"
+                  variant="outline"
+                />
               </CardContent>
             </Card>
 
