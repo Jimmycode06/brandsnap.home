@@ -18,6 +18,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { AlertCircle, Loader2 } from 'lucide-react'
 import Link from 'next/link'
+import { CreditDisplay } from '@/components/credit-display'
 
 export default function Page() {
   const { user } = useAuth()
@@ -95,6 +96,9 @@ export default function Page() {
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
+          </div>
+          <div className="ml-auto">
+            <CreditDisplay />
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
