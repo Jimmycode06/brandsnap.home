@@ -260,7 +260,7 @@ export function HomeStagingGenerator() {
                 <div className="grid grid-cols-3 gap-2 mt-4">
                   {mediaPreviews.map((url, i) => (
                     <div key={i} className="relative aspect-square rounded-lg overflow-hidden border bg-muted">
-                      <img src={url} alt={`Preview ${i + 1}`} className="w-full h-full object-cover" />
+                  <img src={url} alt={`Preview ${i + 1}`} className="w-full h-full object-cover" />
                       <button
                         onClick={() => removeAt(i)}
                         className="absolute top-1 right-1 p-1 rounded-full bg-black/70 hover:bg-black text-white"
@@ -275,7 +275,7 @@ export function HomeStagingGenerator() {
 
             {/* Text Input */}
             <div className="space-y-2">
-              <Label htmlFor="prompt">Description du style d'intérieur*</Label>
+              <Label htmlFor="prompt">Description du style d&apos;intérieur*</Label>
               <textarea
                 id="prompt"
                 rows={3}
