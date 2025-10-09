@@ -1,3 +1,7 @@
+'use client'
+
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { AppSidebar } from '@/components/app-sidebar-home-staging'
 import {
   Breadcrumb,
@@ -8,8 +12,74 @@ import {
 import { Separator } from '@/components/ui/separator'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
 import { HomeStagingGenerator } from '@/components/home-staging-generator'
+import { useAuth } from '@/contexts/auth-context'
+import { useCredits } from '@/contexts/credit-context'
+import { Alert, AlertDescription } from '@/components/ui/alert'
+import { Button } from '@/components/ui/button'
+import { AlertCircle, Loader2 } from 'lucide-react'
+import Link from 'next/link'
 
 export default function Page() {
+  const { user } = useAuth()
+  const { credits, isLoading } = useCredits()
+  const router = useRouter()
+
+  // Rediriger vers l'accueil si pas connecté
+  useEffect(() => {
+    if (!isLoading && !user) {
+      router.push('/')
+    }
+  }, [user, isLoading, router])
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <Loader2 className="h-8 w-8 animate-spin text-green-400" />
+      </div>
+    )
+  }
+
+  if (!user) {
+    return null
+  }
+
+  // Si pas de crédits, afficher un message avec CTA vers pricing
+  if (credits === 0) {
+    return (
+      <SidebarProvider>
+        <AppSidebar />
+        <SidebarInset>
+          <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
+            <div className="flex items-center gap-2">
+              <SidebarTrigger className="-ml-1" />
+              <Separator orientation="vertical" className="mr-2 data-[orientation=vertical]:h-4" />
+              <Breadcrumb>
+                <BreadcrumbList>
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>Home Staging Virtuel</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+            </div>
+          </header>
+          <div className="flex flex-1 flex-col items-center justify-center gap-4 p-4">
+            <Alert variant="destructive" className="max-w-md">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>
+                Vous n&apos;avez plus de crédits. Choisissez un plan pour continuer à utiliser le générateur.
+              </AlertDescription>
+            </Alert>
+            <Link href="/#pricing">
+              <Button size="lg" className="bg-gradient-to-r from-green-500 to-green-600">
+                Voir les plans
+              </Button>
+            </Link>
+          </div>
+        </SidebarInset>
+      </SidebarProvider>
+    )
+  }
+
   return (
     <SidebarProvider>
       <AppSidebar />

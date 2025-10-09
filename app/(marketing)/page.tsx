@@ -153,7 +153,7 @@ export default function HomeStagingLandingPage() {
           </Card>
 
           <div className="text-center mt-8">
-              <Link href="/home-staging">
+              <Link href="#pricing">
               <Button size="lg">
                 Essayer le Home Staging
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -250,7 +250,7 @@ export default function HomeStagingLandingPage() {
           </Card>
 
           <div className="text-center mt-8">
-              <Link href="/home-staging">
+              <Link href="#pricing">
               <Button size="lg" variant="outline">
                 Visualiser ma rénovation
                 <ArrowRight className="ml-2 h-5 w-5" />
