@@ -22,8 +22,8 @@ const PLAN_CREDITS: Record<string, number> = {
 
 // Mapping des Price IDs vers les plans
 const PRICE_TO_PLAN: Record<string, string> = {
-  [process.env.STRIPE_STARTER_PRICE_ID!]: 'starter',
-  [process.env.STRIPE_PROFESSIONAL_PRICE_ID!]: 'professional',
+  [process.env.STRIPE_STARTER_PRICE_ID || 'price_1SGNchDS5DrKB4SxrahLyTQb']: 'starter',
+  [process.env.STRIPE_PROFESSIONAL_PRICE_ID || 'price_1SGPWYDS5DrKB4SxqyQrEADN']: 'professional',
 }
 
 export async function POST(req: NextRequest) {
