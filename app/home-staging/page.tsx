@@ -25,9 +25,14 @@ export default function Page() {
   const { credits, isLoading } = useCredits()
   const router = useRouter()
 
+  // Debug logs
+  console.log('Page render - user:', user?.email, 'credits:', credits, 'isLoading:', isLoading)
+
   // Rediriger vers l'accueil si pas connecté
   useEffect(() => {
+    console.log('useEffect triggered - user:', user?.email, 'isLoading:', isLoading)
     if (!isLoading && !user) {
+      console.log('Redirecting to home - no user')
       router.push('/')
     }
   }, [user, isLoading, router])
