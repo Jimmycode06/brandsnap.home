@@ -27,13 +27,20 @@ export default function Page() {
   const hasRedirectedHome = useRef(false)
   const hasRedirectedUpgrade = useRef(false)
 
-  // Rediriger vers l'accueil si pas connecté (attendre que l'auth soit chargé)
+  // Rediriger vers l'accueil si pas connecté OU vers upgrade si pas assez de crédits (avant tout return)
   useEffect(() => {
-    if (!authLoading && !creditsLoading && !user && !hasRedirectedHome.current) {
-      hasRedirectedHome.current = true
-      router.push('/')
+    if (!authLoading && !creditsLoading) {
+      if (!user && !hasRedirectedHome.current) {
+        hasRedirectedHome.current = true
+        router.push('/')
+        return
+      }
+      if (user && credits === 0 && !hasRedirectedUpgrade.current) {
+        hasRedirectedUpgrade.current = true
+        router.push('/upgrade')
+      }
     }
-  }, [user, authLoading, creditsLoading, router])
+  }, [user, credits, authLoading, creditsLoading, router])
 
   if (authLoading || creditsLoading) {
     return (
@@ -46,14 +53,6 @@ export default function Page() {
   if (!user) {
     return null
   }
-
-  // Si pas assez de crédits, rediriger directement vers la page d'upgrade
-  useEffect(() => {
-    if (!authLoading && !creditsLoading && user && credits === 0 && !hasRedirectedUpgrade.current) {
-      hasRedirectedUpgrade.current = true
-      router.push('/upgrade')
-    }
-  }, [user, credits, authLoading, creditsLoading, router])
 
   // Si pas assez de crédits, afficher un loader pendant la redirection
   if (!canAfford(1)) {
