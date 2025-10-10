@@ -41,10 +41,10 @@ export default function Page() {
         router.push('/#pricing')
         return
       }
-      // Utilisateur avec plan actif mais 0 crédits -> tarifs pour recharger/upgrade
+      // Utilisateur avec plan actif mais 0 crédits -> Upgrade
       if (user && plan && subscriptionStatus === 'active' && credits === 0 && !hasRedirectedUpgrade.current) {
         hasRedirectedUpgrade.current = true
-        router.push('/#pricing')
+        router.push('/upgrade')
       }
     }
   }, [user, credits, authLoading, creditsLoading, router, plan, subscriptionStatus])
