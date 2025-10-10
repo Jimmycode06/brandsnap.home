@@ -22,9 +22,12 @@ export default function HomeStagingLandingPage() {
   // Redirection automatique pour les utilisateurs connectés avec des crédits
   useEffect(() => {
     if (!authLoading && !creditsLoading && user && credits > 0) {
-      router.push('/home-staging')
+      const timer = setTimeout(() => {
+        router.push('/home-staging')
+      }, 100)
+      return () => clearTimeout(timer)
     }
-  }, [user, credits, authLoading, creditsLoading, router])
+  }, [authLoading, creditsLoading, user, credits, router])
 
   return (
     <div className="min-h-screen bg-background">

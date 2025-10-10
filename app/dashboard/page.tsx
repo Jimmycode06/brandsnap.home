@@ -180,7 +180,7 @@ export default function DashboardPage() {
                       />
                       <div className="absolute top-2 left-2">
                         <span className="bg-green-400/90 text-black px-2 py-1 rounded text-xs font-medium">
-                          {gen.type === 'home-staging' ? 'Home Staging' : 'Marketing'}
+                          Home Staging
                         </span>
                       </div>
                     </div>

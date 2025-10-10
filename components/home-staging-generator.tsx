@@ -33,7 +33,7 @@ export function HomeStagingGenerator() {
   
   const { user } = useAuth()
   const { credits, deductCredits, canAfford } = useCredits()
-  const creditCost = CREDIT_COSTS['marketing-generator'] // Utilise la même API
+  const creditCost = CREDIT_COSTS['home-staging']
 
   const dropRef = useRef<HTMLLabelElement | null>(null)
 

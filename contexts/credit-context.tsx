@@ -137,7 +137,7 @@ export function useCredits() {
 // Credit costs for each generator
 export const CREDIT_COSTS = {
   'image-dream': 1,
-  'marketing-generator': 1,
+  'home-staging': 1,
   'video-kling': 50,
   'video-generator': 50,
   'video-ltxv': 30
