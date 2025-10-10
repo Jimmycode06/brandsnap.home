@@ -19,6 +19,8 @@ import {
   Zap
 } from 'lucide-react'
 import { useCredits, CREDIT_COSTS } from '@/contexts/credit-context'
+import { useAuth } from '@/contexts/auth-context'
+import { supabase } from '@/lib/supabase'
 
 export function MarketingGenerator() {
   const [mediaFiles, setMediaFiles] = useState<File[]>([])
@@ -29,10 +31,26 @@ export function MarketingGenerator() {
   const [error, setError] = useState<string | null>(null)
   const [resultUrl, setResultUrl] = useState<string | null>(null)
   
+  const { user } = useAuth()
   const { credits, deductCredits, canAfford } = useCredits()
   const creditCost = CREDIT_COSTS['marketing-generator']
 
   const dropRef = useRef<HTMLLabelElement | null>(null)
+
+  // Helper pour sauvegarder dans la base de données
+  const saveGeneration = useCallback(async (imageUrl: string, generationPrompt: string) => {
+    if (!user) return
+    try {
+      await supabase.from('generations').insert({
+        user_id: user.id,
+        type: 'marketing',
+        prompt: generationPrompt || 'Marketing generation',
+        image_url: imageUrl
+      })
+    } catch (saveError) {
+      console.error('Error saving generation:', saveError)
+    }
+  }, [user])
 
   const maxFiles = 3
   const acceptTypes = useMemo(() => /^(image\/(png|jpg|jpeg|webp))$/, [])
@@ -139,6 +157,7 @@ export function MarketingGenerator() {
 
         if (response.ok && data.success && data.image_url) {
           setResultUrl(data.image_url)
+          await saveGeneration(data.image_url, prompt || 'Marketing generation')
           return
         } else {
           console.warn('Fal.ai Gemini API failed:', data.error)
@@ -277,12 +296,13 @@ export function MarketingGenerator() {
 
       const url = canvas.toDataURL('image/png')
       setResultUrl(url)
+      await saveGeneration(url, prompt || 'Marketing generation')
     } catch (e) {
       setError("Network issue while generating preview. Please try again.")
     } finally {
       setIsGenerating(false)
     }
-  }, [mediaPreviews, prompt, aspectRatio, dims])
+  }, [mediaPreviews, prompt, aspectRatio, dims, saveGeneration])
 
   const handleDownload = useCallback(() => {
     if (!resultUrl) return

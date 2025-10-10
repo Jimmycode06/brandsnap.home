@@ -19,6 +19,8 @@ import {
   Home
 } from 'lucide-react'
 import { useCredits, CREDIT_COSTS } from '@/contexts/credit-context'
+import { useAuth } from '@/contexts/auth-context'
+import { supabase } from '@/lib/supabase'
 
 export function HomeStagingGenerator() {
   const [mediaFiles, setMediaFiles] = useState<File[]>([])
@@ -29,6 +31,7 @@ export function HomeStagingGenerator() {
   const [error, setError] = useState<string | null>(null)
   const [resultUrl, setResultUrl] = useState<string | null>(null)
   
+  const { user } = useAuth()
   const { credits, deductCredits, canAfford } = useCredits()
   const creditCost = CREDIT_COSTS['marketing-generator'] // Utilise la même API
 
@@ -164,6 +167,20 @@ export function HomeStagingGenerator() {
 
       if (data.image_url) {
         setResultUrl(data.image_url)
+        
+        // Sauvegarder dans l'historique
+        if (user) {
+          try {
+            await supabase.from('generations').insert({
+              user_id: user.id,
+              type: 'home-staging',
+              prompt: prompt.trim(),
+              image_url: data.image_url
+            })
+          } catch (saveError) {
+            console.error('Error saving generation:', saveError)
+          }
+        }
       } else {
         throw new Error('Pas d\'image générée')
       }
@@ -172,7 +189,7 @@ export function HomeStagingGenerator() {
     } finally {
       setIsGenerating(false)
     }
-  }, [mediaFiles, mediaPreviews, prompt, aspectRatio, credits, canAfford, deductCredits, creditCost, dims])
+  }, [mediaFiles, mediaPreviews, prompt, aspectRatio, credits, canAfford, deductCredits, creditCost, dims, user])
 
   const handleDownload = useCallback(async () => {
     if (!resultUrl) return
