@@ -22,8 +22,8 @@ const PLAN_CREDITS: Record<string, number> = {
 
 // Mapping des Price IDs vers les plans
 const PRICE_TO_PLAN: Record<string, string> = {
-  [process.env.STRIPE_STARTER_PRICE_ID as string]: 'starter',
-  [process.env.STRIPE_PROFESSIONAL_PRICE_ID as string]: 'professional',
+  ...(process.env.STRIPE_STARTER_PRICE_ID ? { [process.env.STRIPE_STARTER_PRICE_ID]: 'starter' } : {}),
+  ...(process.env.STRIPE_PROFESSIONAL_PRICE_ID ? { [process.env.STRIPE_PROFESSIONAL_PRICE_ID]: 'professional' } : {}),
 }
 
 export async function POST(req: NextRequest) {
@@ -56,10 +56,10 @@ export async function POST(req: NextRequest) {
         const subscription = await stripe.subscriptions.retrieve(subscriptionId)
         const priceId = subscription.items.data[0]?.price.id
         const plan = PRICE_TO_PLAN[priceId] || 'starter'
-        const credits = PLAN_CREDITS[plan]
+        const credits = PLAN_CREDITS[plan] || PLAN_CREDITS['starter']
 
         // Mettre à jour le profil utilisateur
-        await supabase
+        const { error: upErr } = await supabase
           .from('user_profiles')
           .update({
             stripe_customer_id: customerId,
@@ -70,6 +70,10 @@ export async function POST(req: NextRequest) {
             current_period_end: new Date((subscription as any).current_period_end * 1000).toISOString(),
           })
           .eq('id', userId)
+
+        if (upErr) {
+          console.error('Supabase update error (checkout.session.completed):', upErr)
+        }
 
         console.log(`✅ User ${userId} subscribed to ${plan} with ${credits} credits`)
         break
@@ -120,13 +124,17 @@ export async function POST(req: NextRequest) {
 
         if (!profile) break
 
-        await supabase
+        const { error: upErr2 } = await supabase
           .from('user_profiles')
           .update({
             subscription_status: subscription.status,
             current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
           })
           .eq('id', profile.id)
+
+        if (upErr2) {
+          console.error('Supabase update error (subscription.updated):', upErr2)
+        }
 
         console.log(`✅ Subscription updated for user ${profile.id}`)
         break
@@ -144,7 +152,7 @@ export async function POST(req: NextRequest) {
 
         if (!profile) break
 
-        await supabase
+        const { error: upErr3 } = await supabase
           .from('user_profiles')
           .update({
             subscription_status: 'canceled',
@@ -152,6 +160,10 @@ export async function POST(req: NextRequest) {
             credits: 0,
           })
           .eq('id', profile.id)
+
+        if (upErr3) {
+          console.error('Supabase update error (subscription.deleted):', upErr3)
+        }
 
         console.log(`✅ Subscription canceled for user ${profile.id}`)
         break

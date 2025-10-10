@@ -27,10 +27,24 @@ export async function POST(req: NextRequest) {
     const session = await stripe.checkout.sessions.retrieve(session_id)
     const subscriptionId = session.subscription as string
     const customerId = session.customer as string
-    const userId = session.metadata?.supabase_user_id
+    let userId = session.metadata?.supabase_user_id as string | undefined
 
-    if (!subscriptionId || !userId) {
+    if (!subscriptionId) {
       return NextResponse.json({ error: 'Invalid session' }, { status: 400 })
+    }
+
+    // Fallback: retrouver userId via customer si absent
+    if (!userId && customerId) {
+      const { data: profile } = await supabase
+        .from('user_profiles')
+        .select('id')
+        .eq('stripe_customer_id', customerId)
+        .single()
+      userId = profile?.id
+    }
+
+    if (!userId) {
+      return NextResponse.json({ error: 'No user found for session' }, { status: 400 })
     }
 
     const subscription = await stripe.subscriptions.retrieve(subscriptionId)
@@ -42,7 +56,7 @@ export async function POST(req: NextRequest) {
 
     const credits = PLAN_CREDITS[plan]
 
-    await supabase
+    const { error: upErr } = await supabase
       .from('user_profiles')
       .update({
         stripe_customer_id: customerId,
@@ -54,7 +68,12 @@ export async function POST(req: NextRequest) {
       })
       .eq('id', userId)
 
-    return NextResponse.json({ success: true })
+    if (upErr) {
+      console.error('Finalize supabase update error:', upErr)
+      return NextResponse.json({ error: 'DB update failed' }, { status: 500 })
+    }
+
+    return NextResponse.json({ success: true, plan, credits })
   } catch (error: any) {
     console.error('Finalize error:', error)
     return NextResponse.json({ error: error.message || 'Finalize failed' }, { status: 500 })
