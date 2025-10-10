@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { AppSidebar } from '@/components/app-sidebar'
 import {
@@ -32,10 +32,12 @@ export default function DashboardPage() {
   const [generations, setGenerations] = useState<Generation[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
+  const hasRedirected = useRef(false)
 
   // Rediriger si pas connecté
   useEffect(() => {
-    if (!authLoading && !user) {
+    if (!authLoading && !user && !hasRedirected.current) {
+      hasRedirected.current = true
       router.push('/')
     }
   }, [user, authLoading, router])

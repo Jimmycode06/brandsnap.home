@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { AppSidebar } from '@/components/app-sidebar-home-staging'
 import {
@@ -24,10 +24,13 @@ export default function Page() {
   const { user, loading: authLoading } = useAuth()
   const { credits, isLoading: creditsLoading, canAfford } = useCredits()
   const router = useRouter()
+  const hasRedirectedHome = useRef(false)
+  const hasRedirectedUpgrade = useRef(false)
 
   // Rediriger vers l'accueil si pas connecté (attendre que l'auth soit chargé)
   useEffect(() => {
-    if (!authLoading && !creditsLoading && !user) {
+    if (!authLoading && !creditsLoading && !user && !hasRedirectedHome.current) {
+      hasRedirectedHome.current = true
       router.push('/')
     }
   }, [user, authLoading, creditsLoading, router])
@@ -46,7 +49,8 @@ export default function Page() {
 
   // Si pas assez de crédits, rediriger directement vers la page d'upgrade
   useEffect(() => {
-    if (!authLoading && !creditsLoading && user && credits === 0) {
+    if (!authLoading && !creditsLoading && user && credits === 0 && !hasRedirectedUpgrade.current) {
+      hasRedirectedUpgrade.current = true
       router.push('/upgrade')
     }
   }, [user, credits, authLoading, creditsLoading, router])

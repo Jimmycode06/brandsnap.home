@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -18,14 +18,13 @@ export default function HomeStagingLandingPage() {
   const { user, loading: authLoading } = useAuth()
   const { credits, isLoading: creditsLoading } = useCredits()
   const router = useRouter()
+  const hasRedirected = useRef(false)
 
   // Redirection automatique pour les utilisateurs connectés avec des crédits
   useEffect(() => {
-    if (!authLoading && !creditsLoading && user && credits > 0) {
-      const timer = setTimeout(() => {
-        router.push('/home-staging')
-      }, 100)
-      return () => clearTimeout(timer)
+    if (!authLoading && !creditsLoading && user && credits > 0 && !hasRedirected.current) {
+      hasRedirected.current = true
+      router.push('/home-staging')
     }
   }, [authLoading, creditsLoading, user, credits, router])
 
