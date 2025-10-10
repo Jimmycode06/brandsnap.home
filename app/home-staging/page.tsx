@@ -26,10 +26,31 @@ export default function Page() {
   const router = useRouter()
   const hasRedirectedHome = useRef(false)
   const hasRedirectedUpgrade = useRef(false)
+  const hasFinalized = useRef(false)
 
-  // Rediriger vers l'accueil si pas connecté OU vers tarifs si pas de plan/abonnement (avant tout return)
+  // D'abord: finalize Stripe si retour de checkout, puis redirections
   useEffect(() => {
     if (!authLoading && !creditsLoading) {
+      // 1) Finalize en priorité si retour de Stripe
+      const params = new URLSearchParams(window.location.search)
+      const success = params.get('success')
+      const sessionId = params.get('session_id')
+      if (success && sessionId && !hasFinalized.current) {
+        hasFinalized.current = true
+        fetch('/api/stripe/finalize', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ session_id: sessionId }),
+        })
+          .finally(() => {
+            // Nettoyer l'URL et recharger le contexte
+            window.history.replaceState({}, '', '/home-staging')
+            window.location.reload()
+          })
+        return
+      }
+
+      // 2) Redirections selon statut
       if (!user && !hasRedirectedHome.current) {
         hasRedirectedHome.current = true
         router.push('/')
@@ -45,22 +66,6 @@ export default function Page() {
       if (user && plan && subscriptionStatus === 'active' && credits === 0 && !hasRedirectedUpgrade.current) {
         hasRedirectedUpgrade.current = true
         router.push('/upgrade')
-      }
-      // Finalize après succès Stripe (si session_id présent)
-      const params = new URLSearchParams(window.location.search)
-      const success = params.get('success')
-      const sessionId = params.get('session_id')
-      if (success && sessionId) {
-        fetch('/api/stripe/finalize', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ session_id: sessionId }),
-        })
-          .then(() => {
-            // Recharger contexte crédits
-            window.location.replace('/home-staging')
-          })
-          .catch(() => {})
       }
     }
   }, [user, credits, authLoading, creditsLoading, router, plan, subscriptionStatus])
