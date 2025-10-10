@@ -3,7 +3,7 @@ import Stripe from 'stripe'
 import { createClient } from '@supabase/supabase-js'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-09-30.clover',
+  apiVersion: '2024-06-20',
 })
 
 const supabase = createClient(
@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
         },
       ],
       mode: 'subscription',
-      success_url: `${req.headers.get('origin')}/home-staging?success=true`,
+      success_url: `${req.headers.get('origin')}/home-staging?success=true&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${req.headers.get('origin')}/?canceled=true`,
       metadata: {
         supabase_user_id: userId,

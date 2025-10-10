@@ -3,7 +3,7 @@ import Stripe from 'stripe'
 import { createClient } from '@supabase/supabase-js'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-09-30.clover',
+  apiVersion: '2024-06-20',
 })
 
 const supabase = createClient(
@@ -22,8 +22,8 @@ const PLAN_CREDITS: Record<string, number> = {
 
 // Mapping des Price IDs vers les plans
 const PRICE_TO_PLAN: Record<string, string> = {
-  [process.env.STRIPE_STARTER_PRICE_ID || 'price_1SGNchDS5DrKB4SxrahLyTQb']: 'starter',
-  [process.env.STRIPE_PROFESSIONAL_PRICE_ID || 'price_1SGPWYDS5DrKB4SxqyQrEADN']: 'professional',
+  [process.env.STRIPE_STARTER_PRICE_ID as string]: 'starter',
+  [process.env.STRIPE_PROFESSIONAL_PRICE_ID as string]: 'professional',
 }
 
 export async function POST(req: NextRequest) {

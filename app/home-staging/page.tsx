@@ -46,6 +46,17 @@ export default function Page() {
         hasRedirectedUpgrade.current = true
         router.push('/upgrade')
       }
+      // Finalize après succès Stripe (si session_id présent)
+      const params = new URLSearchParams(window.location.search)
+      const success = params.get('success')
+      const sessionId = params.get('session_id')
+      if (success && sessionId) {
+        fetch('/api/stripe/finalize', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ session_id: sessionId }),
+        }).catch(() => {})
+      }
     }
   }, [user, credits, authLoading, creditsLoading, router, plan, subscriptionStatus])
 
