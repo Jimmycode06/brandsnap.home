@@ -11,6 +11,8 @@ interface CreditContextType {
   addCredits: (amount: number) => Promise<void>
   canAfford: (amount: number) => boolean
   isLoading: boolean
+  plan: 'starter' | 'professional' | 'enterprise' | null
+  subscriptionStatus: 'active' | 'canceled' | 'past_due' | 'trialing' | 'incomplete' | null
 }
 
 const CreditContext = createContext<CreditContextType | undefined>(undefined)
@@ -19,6 +21,8 @@ export function CreditProvider({ children }: { children: React.ReactNode }) {
   const [credits, setCredits] = useState(0) // Default: 0 credits
   const [isLoading, setIsLoading] = useState(true)
   const { user } = useAuth()
+  const [plan, setPlan] = useState<'starter' | 'professional' | 'enterprise' | null>(null)
+  const [subscriptionStatus, setSubscriptionStatus] = useState<'active' | 'canceled' | 'past_due' | 'trialing' | 'incomplete' | null>(null)
 
   // Load credits from Supabase when user changes
   useEffect(() => {
@@ -26,6 +30,8 @@ export function CreditProvider({ children }: { children: React.ReactNode }) {
       if (!user) {
         setCredits(0)
         setIsLoading(false)
+        setPlan(null)
+        setSubscriptionStatus(null)
         return
       }
 
@@ -41,15 +47,21 @@ export function CreditProvider({ children }: { children: React.ReactNode }) {
           // Clear localStorage and set to 0 for users without profile
           localStorage.removeItem('brandsnap-credits')
           setCredits(0)
+          setPlan(null)
+          setSubscriptionStatus(null)
         } else {
           // Toujours utiliser les crédits de la base de données
           setCredits(data?.credits || 0)
+          setPlan((data as any)?.plan ?? null)
+          setSubscriptionStatus((data as any)?.subscription_status ?? null)
         }
       } catch (error) {
         console.error('Error loading credits:', error)
         // Clear localStorage and set to 0 for users without profile
         localStorage.removeItem('brandsnap-credits')
         setCredits(0)
+        setPlan(null)
+        setSubscriptionStatus(null)
       } finally {
         setIsLoading(false)
       }
@@ -119,7 +131,9 @@ export function CreditProvider({ children }: { children: React.ReactNode }) {
       deductCredits,
       addCredits,
       canAfford,
-      isLoading
+      isLoading,
+      plan,
+      subscriptionStatus
     }}>
       {children}
     </CreditContext.Provider>

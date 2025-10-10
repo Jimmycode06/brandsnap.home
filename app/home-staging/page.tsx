@@ -22,12 +22,12 @@ import { CreditDisplay } from '@/components/credit-display'
 
 export default function Page() {
   const { user, loading: authLoading } = useAuth()
-  const { credits, isLoading: creditsLoading, canAfford } = useCredits()
+  const { credits, isLoading: creditsLoading, canAfford, plan, subscriptionStatus } = useCredits()
   const router = useRouter()
   const hasRedirectedHome = useRef(false)
   const hasRedirectedUpgrade = useRef(false)
 
-  // Rediriger vers l'accueil si pas connecté OU vers upgrade si pas assez de crédits (avant tout return)
+  // Rediriger vers l'accueil si pas connecté OU vers tarifs si pas de plan/abonnement (avant tout return)
   useEffect(() => {
     if (!authLoading && !creditsLoading) {
       if (!user && !hasRedirectedHome.current) {
@@ -35,12 +35,19 @@ export default function Page() {
         router.push('/')
         return
       }
-      if (user && credits === 0 && !hasRedirectedUpgrade.current) {
+      // Nouveaux utilisateurs: pas de plan ou abonnement inactif -> tarifs
+      if (user && (!plan || subscriptionStatus !== 'active') && !hasRedirectedUpgrade.current) {
         hasRedirectedUpgrade.current = true
-        router.push('/upgrade')
+        router.push('/#pricing')
+        return
+      }
+      // Utilisateur avec plan actif mais 0 crédits -> tarifs pour recharger/upgrade
+      if (user && plan && subscriptionStatus === 'active' && credits === 0 && !hasRedirectedUpgrade.current) {
+        hasRedirectedUpgrade.current = true
+        router.push('/#pricing')
       }
     }
-  }, [user, credits, authLoading, creditsLoading, router])
+  }, [user, credits, authLoading, creditsLoading, router, plan, subscriptionStatus])
 
   if (authLoading || creditsLoading) {
     return (
@@ -54,11 +61,16 @@ export default function Page() {
     return null
   }
 
-  // Si pas assez de crédits, afficher un loader pendant la redirection
+  // Si pas assez de crédits, afficher CTA vers tarifs au lieu d'un loader
   if (!canAfford(1)) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-green-400" />
+        <div className="text-center space-y-4">
+          <p className="text-sm text-muted-foreground">Vous n'avez pas encore de crédits.</p>
+          <Button asChild>
+            <Link href="/#pricing">Choisir un plan</Link>
+          </Button>
+        </div>
       </div>
     )
   }
