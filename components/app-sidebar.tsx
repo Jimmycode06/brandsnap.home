@@ -1,6 +1,6 @@
 import * as React from "react"
 import Link from "next/link"
-import { LayoutDashboard, Home as HomeIcon, Zap } from "lucide-react"
+import { LayoutDashboard, Home as HomeIcon } from "lucide-react"
 
 import {
   Sidebar,
@@ -29,7 +29,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenuButton asChild>
               <Link href="/dashboard">
                 <LayoutDashboard className="mr-2 h-4 w-4" />
-                Dashboard
+                Transformations
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -38,14 +38,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <Link href="/home-staging">
                 <HomeIcon className="mr-2 h-4 w-4" />
                 Home Staging
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild>
-              <Link href="/generator">
-                <Zap className="mr-2 h-4 w-4" />
-                Marketing
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

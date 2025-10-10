@@ -128,7 +128,7 @@ export default function DashboardPage() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Dashboard</BreadcrumbPage>
+                  <BreadcrumbPage>Transformations</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -142,20 +142,14 @@ export default function DashboardPage() {
           <div className="flex-1 space-y-4">
             <div className="flex items-center justify-between mt-4">
               <div>
-                <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
-                <p className="text-sm text-muted-foreground">Vos dernières générations</p>
+                <h2 className="text-3xl font-bold tracking-tight">Mes Transformations</h2>
+                <p className="text-sm text-muted-foreground">Historique de vos générations</p>
               </div>
               <div className="flex gap-2">
-                <Button asChild variant="outline">
-                  <Link href="/generator">
-                    <ImageIcon className="mr-2 h-4 w-4" />
-                    Marketing
-                  </Link>
-                </Button>
                 <Button asChild>
                   <Link href="/home-staging">
                     <Home className="mr-2 h-4 w-4" />
-                    Home Staging
+                    Nouvelle transformation
                   </Link>
                 </Button>
               </div>
@@ -165,18 +159,13 @@ export default function DashboardPage() {
               <Card>
                 <CardContent className="p-12 text-center">
                   <ImageIcon className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">Aucune génération</h3>
+                  <h3 className="text-lg font-semibold mb-2">Aucune transformation</h3>
                   <p className="text-muted-foreground mb-6">
-                    Commencez à créer vos premiers visuels avec l'IA
+                    Commencez à créer vos premières transformations avec l'IA
                   </p>
-                  <div className="flex gap-2 justify-center">
-                    <Button asChild variant="outline">
-                      <Link href="/generator">Marketing</Link>
-                    </Button>
-                    <Button asChild>
-                      <Link href="/home-staging">Home Staging</Link>
-                    </Button>
-                  </div>
+                  <Button asChild>
+                    <Link href="/home-staging">Créer une transformation</Link>
+                  </Button>
                 </CardContent>
               </Card>
             ) : (
