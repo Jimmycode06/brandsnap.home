@@ -46,10 +46,10 @@ export default function Page() {
 
   // Si pas assez de crédits, rediriger directement vers la page d'upgrade
   useEffect(() => {
-    if (!authLoading && !creditsLoading && user && !canAfford(1)) {
+    if (!authLoading && !creditsLoading && user && credits === 0) {
       router.push('/upgrade')
     }
-  }, [user, credits, authLoading, creditsLoading, canAfford, router])
+  }, [user, credits, authLoading, creditsLoading, router])
 
   // Si pas assez de crédits, afficher un loader pendant la redirection
   if (!canAfford(1)) {

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useContext, useState, useEffect } from 'react'
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react'
 import { useAuth } from './auth-context'
 import { supabase } from '@/lib/supabase'
 
@@ -108,9 +108,9 @@ export function CreditProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
-  const canAfford = (amount: number): boolean => {
+  const canAfford = useCallback((amount: number): boolean => {
     return credits >= amount
-  }
+  }, [credits])
 
   return (
     <CreditContext.Provider value={{
