@@ -36,22 +36,22 @@ ALTER TABLE user_profiles ENABLE ROW LEVEL SECURITY;
 DO $$
 BEGIN
   IF NOT EXISTS (
-    SELECT 1 FROM pg_policies WHERE schemaname = 'public' AND tablename = 'user_profiles' AND polname = 'Users can view own profile'
+    SELECT 1 FROM pg_policies WHERE schemaname = 'public' AND tablename = 'user_profiles' AND policyname = 'Users can view own profile'
   ) THEN
     EXECUTE 'CREATE POLICY "Users can view own profile" ON user_profiles FOR SELECT USING (auth.uid() = id)';
   END IF;
   IF NOT EXISTS (
-    SELECT 1 FROM pg_policies WHERE schemaname = 'public' AND tablename = 'user_profiles' AND polname = 'Users can update own profile'
+    SELECT 1 FROM pg_policies WHERE schemaname = 'public' AND tablename = 'user_profiles' AND policyname = 'Users can update own profile'
   ) THEN
     EXECUTE 'CREATE POLICY "Users can update own profile" ON user_profiles FOR UPDATE USING (auth.uid() = id)';
   END IF;
   IF NOT EXISTS (
-    SELECT 1 FROM pg_policies WHERE schemaname = 'public' AND tablename = 'user_profiles' AND polname = 'Users can insert own profile'
+    SELECT 1 FROM pg_policies WHERE schemaname = 'public' AND tablename = 'user_profiles' AND policyname = 'Users can insert own profile'
   ) THEN
     EXECUTE 'CREATE POLICY "Users can insert own profile" ON user_profiles FOR INSERT WITH CHECK (auth.uid() = id)';
   END IF;
   IF NOT EXISTS (
-    SELECT 1 FROM pg_policies WHERE schemaname = 'public' AND tablename = 'user_profiles' AND polname = 'Service role can do everything'
+    SELECT 1 FROM pg_policies WHERE schemaname = 'public' AND tablename = 'user_profiles' AND policyname = 'Service role can do everything'
   ) THEN
     EXECUTE 'CREATE POLICY "Service role can do everything" ON user_profiles USING (auth.role() = ''service_role'')';
   END IF;
