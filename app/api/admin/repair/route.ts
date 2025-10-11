@@ -69,7 +69,9 @@ export async function POST(req: NextRequest) {
         subscription_status: sub.status as any,
         plan,
         credits,
-        current_period_end: new Date(sub.current_period_end * 1000).toISOString(),
+        current_period_end: sub.current_period_end
+          ? new Date(sub.current_period_end * 1000).toISOString()
+          : null,
       })
       .eq('id', profile.id)
 
