@@ -54,11 +54,16 @@ export async function POST(req: NextRequest) {
 
         // Récupérer la subscription pour obtenir le price_id
         const subscription = await stripe.subscriptions.retrieve(subscriptionId)
+        console.log('[webhook] sub.current_period_end =', (subscription as any)?.current_period_end)
         const priceId = subscription.items.data[0]?.price.id
         const plan = PRICE_TO_PLAN[priceId] || 'starter'
         const credits = PLAN_CREDITS[plan] || PLAN_CREDITS['starter']
 
         // Mettre à jour le profil utilisateur
+        const periodEnd = (subscription as any)?.current_period_end
+          ? new Date((subscription as any).current_period_end * 1000).toISOString()
+          : null
+
         const { error: upErr } = await supabase
           .from('user_profiles')
           .update({
@@ -67,7 +72,7 @@ export async function POST(req: NextRequest) {
             subscription_status: 'active',
             plan: plan,
             credits: credits,
-            current_period_end: new Date((subscription as any).current_period_end * 1000).toISOString(),
+            current_period_end: periodEnd,
           })
           .eq('id', userId)
 

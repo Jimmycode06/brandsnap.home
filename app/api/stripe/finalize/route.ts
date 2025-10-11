@@ -56,6 +56,10 @@ export async function POST(req: NextRequest) {
 
     const credits = PLAN_CREDITS[plan]
 
+    const periodEnd = (subscription as any)?.current_period_end
+      ? new Date(subscription.current_period_end * 1000).toISOString()
+      : null
+
     const { error: upErr } = await supabase
       .from('user_profiles')
       .update({
@@ -64,7 +68,7 @@ export async function POST(req: NextRequest) {
         subscription_status: 'active',
         plan,
         credits,
-        current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
+        current_period_end: periodEnd,
       })
       .eq('id', userId)
 
