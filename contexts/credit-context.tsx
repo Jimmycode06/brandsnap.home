@@ -11,7 +11,7 @@ interface CreditContextType {
   addCredits: (amount: number) => Promise<void>
   canAfford: (amount: number) => boolean
   isLoading: boolean
-  plan: 'starter' | 'professional' | 'enterprise' | null
+  plan: 'trial' | 'starter' | 'professional' | 'enterprise' | null
   subscriptionStatus: 'active' | 'canceled' | 'past_due' | 'trialing' | 'incomplete' | null
 }
 
@@ -21,7 +21,7 @@ export function CreditProvider({ children }: { children: React.ReactNode }) {
   const [credits, setCredits] = useState(0) // Default: 0 credits
   const [isLoading, setIsLoading] = useState(true)
   const { user } = useAuth()
-  const [plan, setPlan] = useState<'starter' | 'professional' | 'enterprise' | null>(null)
+  const [plan, setPlan] = useState<'trial' | 'starter' | 'professional' | 'enterprise' | null>(null)
   const [subscriptionStatus, setSubscriptionStatus] = useState<'active' | 'canceled' | 'past_due' | 'trialing' | 'incomplete' | null>(null)
 
   // Load credits from Supabase when user changes
