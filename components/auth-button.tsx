@@ -29,7 +29,7 @@ export function AuthButton() {
     return (
       <Button onClick={signInWithGoogle} size="sm" className="bg-green-500 hover:bg-green-600">
         <User className="h-4 w-4 mr-2" />
-        Get Started
+        Commencer
       </Button>
     )
   }
