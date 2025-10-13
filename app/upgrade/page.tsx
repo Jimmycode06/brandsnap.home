@@ -33,13 +33,13 @@ export default function UpgradePage() {
             </div>
             
             <h1 className="text-4xl md:text-5xl font-bold">
-              Upgrade vers le{' '}
-              <span className="text-green-400">Professional</span>
+              Vous n'avez plus de{' '}
+              <span className="text-green-400">crédits</span>
             </h1>
             
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Vous avez épuisé vos crédits Starter. Passez au plan Professional pour 
-              <strong> 100 transformations par mois</strong> et continuez à créer des visuels exceptionnels.
+              Vous avez épuisé vos crédits gratuits. Choisissez entre le plan <strong>Starter</strong> ou <strong>Professional</strong> 
+              pour continuer à créer des visuels exceptionnels.
             </p>
 
             <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
@@ -54,9 +54,9 @@ export default function UpgradePage() {
       <section className="py-16 bg-muted/30">
         <div className="container max-w-6xl mx-auto px-4">
           <div className="text-center space-y-4 mb-12">
-            <h2 className="text-3xl font-bold">Comparez les plans</h2>
+            <h2 className="text-3xl font-bold">Choisissez votre plan</h2>
             <p className="text-muted-foreground">
-              Découvrez pourquoi le plan Professional est parfait pour vous
+              Sélectionnez le plan qui correspond le mieux à vos besoins
             </p>
           </div>
 
@@ -85,10 +85,11 @@ export default function UpgradePage() {
                     </li>
                   </ul>
 
-                  <div className="pt-4 border-t">
-                    <p className="text-sm text-gray-500 text-center">
-                      Plan actuel
-                    </p>
+                  <div className="pt-4">
+                    <PricingButton 
+                      priceId={process.env.NEXT_PUBLIC_STRIPE_STARTER_PRICE_ID || 'price_1SGPWYDS5DrKB4SxqyQrEADN'}
+                      label="Choisir Starter"
+                    />
                   </div>
                 </div>
               </CardContent>
@@ -128,7 +129,7 @@ export default function UpgradePage() {
                   <div className="pt-4">
                     <PricingButton 
                       priceId={process.env.NEXT_PUBLIC_STRIPE_PROFESSIONAL_PRICE_ID || 'price_1SGPWYDS5DrKB4SxqyQrEADN'}
-                      label="Upgrade maintenant"
+                      label="Choisir Professional"
                     />
                   </div>
                 </div>
@@ -142,7 +143,7 @@ export default function UpgradePage() {
       <section className="py-16">
         <div className="container max-w-4xl mx-auto px-4">
           <div className="text-center space-y-4 mb-12">
-            <h2 className="text-3xl font-bold">Pourquoi upgrade vers Professional ?</h2>
+            <h2 className="text-3xl font-bold">Pourquoi choisir Professional ?</h2>
             <p className="text-muted-foreground">
               Plus de transformations, plus de possibilités
             </p>
@@ -192,16 +193,19 @@ export default function UpgradePage() {
       <section className="py-16 bg-muted/30">
         <div className="container max-w-4xl mx-auto px-4 text-center">
           <div className="space-y-6">
-            <h2 className="text-3xl font-bold">Prêt à passer au niveau supérieur ?</h2>
+            <h2 className="text-3xl font-bold">Prêt à choisir votre plan ?</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Rejoignez des centaines d&apos;agences qui utilisent le plan Professional 
-              pour maximiser leur productivité et leurs ventes.
+              Choisissez le plan qui correspond le mieux à vos besoins et continuez à créer des visuels exceptionnels.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <PricingButton 
+                priceId={process.env.NEXT_PUBLIC_STRIPE_STARTER_PRICE_ID || 'price_1SGPWYDS5DrKB4SxqyQrEADN'}
+                label="Choisir Starter"
+              />
+              <PricingButton 
                 priceId={process.env.NEXT_PUBLIC_STRIPE_PROFESSIONAL_PRICE_ID || 'price_1SGPWYDS5DrKB4SxqyQrEADN'}
-                label="Upgrade vers Professional"
+                label="Choisir Professional"
               />
               <Link href="/home-staging">
                 <Button variant="outline" size="lg">
