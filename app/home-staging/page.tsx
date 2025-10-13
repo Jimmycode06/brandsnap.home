@@ -57,16 +57,11 @@ export default function Page() {
         router.push('/')
         return
       }
-      // Nouveaux utilisateurs: pas de plan ou abonnement inactif -> tarifs
-      if (user && (!plan || subscriptionStatus !== 'active') && !hasRedirectedUpgrade.current) {
-        hasRedirectedUpgrade.current = true
-        router.push('/#pricing')
-        return
-      }
-      // Utilisateur avec plan actif mais 0 crédits -> Upgrade
-      if (user && plan && subscriptionStatus === 'active' && credits === 0 && !hasRedirectedUpgrade.current) {
+      // Utilisateur avec 0 crédits -> Upgrade (peu importe le statut)
+      if (user && credits === 0 && !hasRedirectedUpgrade.current) {
         hasRedirectedUpgrade.current = true
         router.push('/upgrade')
+        return
       }
     }
   }, [user, credits, authLoading, creditsLoading, router, plan, subscriptionStatus])
