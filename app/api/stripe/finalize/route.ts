@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
 
     let plan: 'starter' | 'professional' | 'enterprise' = 'starter'
     if (priceId === (process.env.STRIPE_PROFESSIONAL_PRICE_ID as string)) plan = 'professional'
-    if (priceId === (process.env.STRIPE_STARTER_PRICE_ID as string)) plan = 'starter'
+    if (priceId === (process.env.STRIPE_STARTER_PRICE_ID as string) || priceId === 'price_1SHmoLDS5DrKB4SxaYGE7iN4') plan = 'starter'
 
     const credits = PLAN_CREDITS[plan]
 

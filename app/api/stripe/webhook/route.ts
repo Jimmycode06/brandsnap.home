@@ -22,6 +22,7 @@ const PLAN_CREDITS: Record<string, number> = {
 const PRICE_TO_PLAN: Record<string, string> = {
   ...(process.env.STRIPE_STARTER_PRICE_ID ? { [process.env.STRIPE_STARTER_PRICE_ID]: 'starter' } : {}),
   ...(process.env.STRIPE_PROFESSIONAL_PRICE_ID ? { [process.env.STRIPE_PROFESSIONAL_PRICE_ID]: 'professional' } : {}),
+  'price_1SHmoLDS5DrKB4SxaYGE7iN4': 'starter', // Nouveau priceId Starter
 }
 
 export async function POST(req: NextRequest) {

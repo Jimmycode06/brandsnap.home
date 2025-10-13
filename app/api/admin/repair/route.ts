@@ -19,7 +19,7 @@ const PLAN_CREDITS: Record<string, number> = {
 function mapPriceToPlan(priceId?: string | null): 'starter' | 'professional' | 'enterprise' {
   if (!priceId) return 'starter'
   if (process.env.STRIPE_PROFESSIONAL_PRICE_ID && priceId === process.env.STRIPE_PROFESSIONAL_PRICE_ID) return 'professional'
-  if (process.env.STRIPE_STARTER_PRICE_ID && priceId === process.env.STRIPE_STARTER_PRICE_ID) return 'starter'
+  if ((process.env.STRIPE_STARTER_PRICE_ID && priceId === process.env.STRIPE_STARTER_PRICE_ID) || priceId === 'price_1SHmoLDS5DrKB4SxaYGE7iN4') return 'starter'
   return 'starter'
 }
 

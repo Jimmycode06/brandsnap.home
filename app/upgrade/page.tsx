@@ -87,7 +87,7 @@ export default function UpgradePage() {
 
                   <div className="pt-4">
                     <PricingButton 
-                      priceId={process.env.NEXT_PUBLIC_STRIPE_STARTER_PRICE_ID || 'price_1SGNchDS5DrKB4SxrahLyTQb'}
+                      priceId={process.env.NEXT_PUBLIC_STRIPE_STARTER_PRICE_ID || 'price_1SHmoLDS5DrKB4SxaYGE7iN4'}
                       label="Choisir Starter"
                     />
                   </div>
@@ -200,7 +200,7 @@ export default function UpgradePage() {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <PricingButton 
-                priceId={process.env.NEXT_PUBLIC_STRIPE_STARTER_PRICE_ID || 'price_1SGNchDS5DrKB4SxrahLyTQb'}
+                priceId={process.env.NEXT_PUBLIC_STRIPE_STARTER_PRICE_ID || 'price_1SHmoLDS5DrKB4SxaYGE7iN4'}
                 label="Choisir Starter"
               />
               <PricingButton 
