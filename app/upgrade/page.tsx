@@ -62,32 +62,32 @@ export default function UpgradePage() {
 
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {/* Plan Starter */}
-            <Card className="border-gray-200">
+            <Card className="border-green-400/40 bg-green-400/5">
               <CardContent className="p-8">
                 <div className="space-y-4">
                   <div>
-                    <h3 className="text-2xl font-bold text-gray-500">Starter</h3>
-                    <div className="text-3xl font-bold text-gray-500">29€<span className="text-lg text-muted-foreground">/mois</span></div>
+                    <h3 className="text-2xl font-bold">Starter</h3>
+                    <div className="text-3xl font-bold">29€<span className="text-lg text-muted-foreground">/mois</span></div>
                   </div>
                   
                   <ul className="space-y-3">
                     <li className="flex items-start gap-2">
-                      <CheckCircle className="h-5 w-5 text-gray-400 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm text-gray-500">30 transformations/mois</span>
+                      <CheckCircle className="h-5 w-5 text-green-400 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm">30 transformations/mois</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <CheckCircle className="h-5 w-5 text-gray-400 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm text-gray-500">Résolution 4K</span>
+                      <CheckCircle className="h-5 w-5 text-green-400 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm">Résolution 4K</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <CheckCircle className="h-5 w-5 text-gray-400 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm text-gray-500">Support email</span>
+                      <CheckCircle className="h-5 w-5 text-green-400 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm">Support email</span>
                     </li>
                   </ul>
 
                   <div className="pt-4">
                     <PricingButton 
-                      priceId={process.env.NEXT_PUBLIC_STRIPE_STARTER_PRICE_ID || 'price_1SGPWYDS5DrKB4SxqyQrEADN'}
+                      priceId={process.env.STRIPE_STARTER_PRICE_ID || 'price_1SGPWYDS5DrKB4SxqyQrEADN'}
                       label="Choisir Starter"
                     />
                   </div>
@@ -128,7 +128,7 @@ export default function UpgradePage() {
 
                   <div className="pt-4">
                     <PricingButton 
-                      priceId={process.env.NEXT_PUBLIC_STRIPE_PROFESSIONAL_PRICE_ID || 'price_1SGPWYDS5DrKB4SxqyQrEADN'}
+                      priceId={process.env.STRIPE_PROFESSIONAL_PRICE_ID || 'price_1SGPWYDS5DrKB4SxqyQrEADN'}
                       label="Choisir Professional"
                     />
                   </div>
@@ -200,11 +200,11 @@ export default function UpgradePage() {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <PricingButton 
-                priceId={process.env.NEXT_PUBLIC_STRIPE_STARTER_PRICE_ID || 'price_1SGPWYDS5DrKB4SxqyQrEADN'}
+                priceId={process.env.STRIPE_STARTER_PRICE_ID || 'price_1SGPWYDS5DrKB4SxqyQrEADN'}
                 label="Choisir Starter"
               />
               <PricingButton 
-                priceId={process.env.NEXT_PUBLIC_STRIPE_PROFESSIONAL_PRICE_ID || 'price_1SGPWYDS5DrKB4SxqyQrEADN'}
+                priceId={process.env.STRIPE_PROFESSIONAL_PRICE_ID || 'price_1SGPWYDS5DrKB4SxqyQrEADN'}
                 label="Choisir Professional"
               />
               <Link href="/home-staging">
