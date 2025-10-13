@@ -19,6 +19,7 @@ import { Button } from '@/components/ui/button'
 import { AlertCircle, Loader2 } from 'lucide-react'
 import Link from 'next/link'
 import { CreditDisplay } from '@/components/credit-display'
+import { AuthButton } from '@/components/auth-button'
 
 export default function Page() {
   const { user, loading: authLoading } = useAuth()
@@ -112,8 +113,9 @@ export default function Page() {
               </BreadcrumbList>
             </Breadcrumb>
           </div>
-          <div className="ml-auto">
+          <div className="ml-auto flex items-center gap-3">
             <CreditDisplay />
+            <AuthButton />
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
