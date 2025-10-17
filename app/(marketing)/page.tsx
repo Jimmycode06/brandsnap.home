@@ -34,8 +34,8 @@ export default function HomeStagingLandingPage() {
       <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <img src="/logoa.png" alt="Brandsnap Home Staging" className="h-8 w-8" />
-            <span className="text-lg font-semibold">Brandsnap Home Staging</span>
+            <img src="/logoa.png" alt="BaoraHome" className="h-8 w-8" />
+            <span className="text-lg font-semibold">BaoraHome</span>
           </Link>
           
           <div className="hidden md:flex items-center gap-6">
@@ -279,7 +279,7 @@ export default function HomeStagingLandingPage() {
       <section id="features" className="py-20">
         <div className="container max-w-6xl mx-auto px-4">
           <div className="text-center space-y-4 mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold">Pourquoi choisir Brandsnap ?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold">Pourquoi choisir BaoraHome ?</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
               La solution complète pour valoriser vos biens immobiliers.
             </p>
@@ -489,7 +489,7 @@ export default function HomeStagingLandingPage() {
             <CardContent className="p-12 text-center space-y-6">
               <h2 className="text-3xl md:text-4xl font-bold">Prêt à transformer vos annonces ?</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                Rejoignez des centaines d&apos;agences immobilières qui utilisent Brandsnap pour valoriser leurs biens.
+                Rejoignez des centaines d&apos;agences immobilières qui utilisent BaoraHome pour valoriser leurs biens.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <AuthButton />
@@ -510,7 +510,7 @@ export default function HomeStagingLandingPage() {
             <Card>
               <CardContent className="p-6">
                 <h3 className="text-lg font-semibold mb-2">Ai-je besoin de compétences en design ?</h3>
-                <p className="text-muted-foreground">Non. Uploadez vos photos et décrivez le style souhaité—Brandsnap s'occupe du reste.</p>
+                <p className="text-muted-foreground">Non. Uploadez vos photos et décrivez le style souhaité—BaoraHome s'occupe du reste.</p>
               </CardContent>
             </Card>
             
@@ -545,14 +545,14 @@ export default function HomeStagingLandingPage() {
           <div className="text-center space-y-8">
             {/* Logo and Brand */}
             <div className="flex items-center justify-center gap-4">
-              <img src="/logoa.png" alt="Brandsnap" className="h-16 w-16" />
-              <span className="text-4xl font-bold">Brandsnap</span>
+              <img src="/logoa.png" alt="BaoraHome" className="h-16 w-16" />
+              <span className="text-4xl font-bold">BaoraHome</span>
             </div>
             
             {/* Footer Info */}
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8">
               <p className="text-sm text-muted-foreground">
-                © {new Date().getFullYear()} Brandsnap. Home Staging Virtuel pour Agences Immobilières.
+                © {new Date().getFullYear()} BaoraHome. Home Staging Virtuel pour Agences Immobilières.
               </p>
               <div className="text-xs text-muted-foreground text-center md:text-right">
                 Powered by <span className="text-green-400">Artificial Intelligence</span>

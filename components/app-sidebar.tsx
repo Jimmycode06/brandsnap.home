@@ -19,8 +19,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar {...props}>
       <SidebarHeader>
         <div className="flex h-12 items-center gap-1.5 px-2">
-          <img src="/logoa.png" alt="Brandsnap" className="h-8 w-8" />
-          <span className="text-lg font-semibold">Brandsnap</span>
+          <img src="/logoa.png" alt="BaoraHome" className="h-8 w-8" />
+          <span className="text-lg font-semibold">BaoraHome</span>
         </div>
       </SidebarHeader>
       <SidebarContent>

@@ -8,7 +8,7 @@ import { AuthProvider } from '@/contexts/auth-context'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Brandsnap Home Staging - Home Staging Virtuel par IA',
+  title: 'BaoraHome - Home Staging Virtuel par IA',
   description: 'Transformez vos biens immobiliers vides en intérieurs meublés avec l\'IA. Home staging virtuel pour agences immobilières.',
 }
 

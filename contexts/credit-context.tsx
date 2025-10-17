@@ -45,7 +45,7 @@ export function CreditProvider({ children }: { children: React.ReactNode }) {
         if (error) {
           console.error('Error loading credits:', error)
           // Clear localStorage and set to 0 for users without profile
-          localStorage.removeItem('brandsnap-credits')
+          localStorage.removeItem('baorahome-credits')
           setCredits(0)
           setPlan(null)
           setSubscriptionStatus(null)
@@ -58,7 +58,7 @@ export function CreditProvider({ children }: { children: React.ReactNode }) {
       } catch (error) {
         console.error('Error loading credits:', error)
         // Clear localStorage and set to 0 for users without profile
-        localStorage.removeItem('brandsnap-credits')
+        localStorage.removeItem('baorahome-credits')
         setCredits(0)
         setPlan(null)
         setSubscriptionStatus(null)

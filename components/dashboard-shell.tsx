@@ -33,7 +33,7 @@ export function DashboardShell({ children }: DashboardShellProps) {
           <div className="flex h-16 items-center border-b px-6">
             <div className="flex items-center space-x-2">
               <Sparkles className="h-6 w-6 text-primary" />
-              <span className="text-xl font-bold">Brandsnap</span>
+              <span className="text-xl font-bold">BaoraHome</span>
             </div>
           </div>
 

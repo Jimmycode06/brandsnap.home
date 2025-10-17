@@ -1,4 +1,4 @@
-# Brandsnap - Générateur Marketing IA
+# BaoraHome - Home Staging Virtuel par IA
 
 Une application Next.js 14 qui génère des visuels marketing et des slogans à partir de vos logos en utilisant l'IA Gemini 2.5 Flash Image.
 
@@ -18,7 +18,7 @@ Une application Next.js 14 qui génère des visuels marketing et des slogans à 
 1. **Cloner le projet**
    ```bash
    git clone <your-repo-url>
-   cd Brandsnap
+   cd baorahome
    ```
 
 2. **Installer les dépendances**
@@ -55,7 +55,7 @@ Une application Next.js 14 qui génère des visuels marketing et des slogans à 
 ## 📁 Structure du projet
 
 ```
-Brandsnap/
+BaoraHome/
 ├── app/                      # Pages Next.js 14 (App Router)
 │   ├── layout.tsx           # Layout principal avec métadonnées
 │   ├── page.tsx             # Page d'accueil avec dashboard
@@ -147,4 +147,4 @@ Les contributions sont les bienvenues ! N'hésitez pas à ouvrir une issue ou un
 
 ---
 
-**Brandsnap** - Transformez vos logos en assets marketing professionnels avec l'IA ⚡
+**BaoraHome** - Home Staging Virtuel pour Agences Immobilières ⚡
