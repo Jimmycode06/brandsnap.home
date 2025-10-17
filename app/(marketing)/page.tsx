@@ -11,11 +11,10 @@ import { PricingButton } from '@/components/pricing-button'
 import { useAuth } from '@/contexts/auth-context'
 import { useCredits } from '@/contexts/credit-context'
 import { ArrowRight, CheckCircle, Clock, TrendingUp, Zap, ChevronLeft, ChevronRight, Upload, MessageSquare, Download, Home } from 'lucide-react'
-import { Compare } from '@/components/ui/compare'
-import { AnimatedStats } from '@/components/ui/animated-stats'
-import { Testimonials } from '@/components/ui/testimonials'
 
 export default function HomeStagingLandingPage() {
+  const [beforeAfterSlider, setBeforeAfterSlider] = useState(50)
+  const [renovationSlider, setRenovationSlider] = useState(50)
   const { user, loading: authLoading } = useAuth()
   const { credits, isLoading: creditsLoading } = useCredits()
   const router = useRouter()
@@ -82,36 +81,8 @@ export default function HomeStagingLandingPage() {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-20 bg-gradient-to-b from-background to-muted/30">
-        <div className="container max-w-6xl mx-auto px-4">
-          <AnimatedStats 
-            stats={[
-              {
-                title: "Clients satisfaits",
-                value: 500,
-                suffix: "+",
-                description: "Agences immobilières qui nous font confiance"
-              },
-              {
-                title: "Transformations",
-                value: 15000,
-                suffix: "+",
-                description: "Photos transformées avec succès"
-              },
-              {
-                title: "Temps moyen",
-                value: 30,
-                suffix: " secondes",
-                description: "Pour générer vos visuels"
-              }
-            ]}
-          />
-        </div>
-      </section>
-
       {/* Before/After Demo Section - Home Staging */}
-      <section id="demo" className="py-20">
+      <section id="demo" className="py-20 bg-muted/30">
         <div className="container max-w-6xl mx-auto px-4">
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-3xl md:text-4xl font-bold">Home Staging Virtuel</h2>
@@ -120,17 +91,84 @@ export default function HomeStagingLandingPage() {
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto">
-            <Compare
-              leftImage="/before-empty-room.jpg"
-              rightImage="/after-furnished-room.jpg"
-              leftImageLabel="Avant"
-              rightImageLabel="Après"
-            />
-          </div>
+          <Card className="overflow-hidden max-w-4xl mx-auto">
+            <CardContent className="p-0">
+              <div className="relative w-full h-[400px] bg-gray-100">
+                {/* Image de fond */}
+                <img 
+                  src="/after-furnished-room.jpg" 
+                  alt="Pièce vide"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                
+                {/* Image superposée avec clip */}
+                <div 
+                  className="absolute inset-0"
+                  style={{ clipPath: `inset(0 ${100 - beforeAfterSlider}% 0 0)` }}
+                >
+                  <img 
+                    src="/before-empty-room.jpg" 
+                    alt="Pièce meublée"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                {/* Curseur */}
+                <div 
+                  className="absolute top-0 bottom-0 w-1 bg-white shadow-lg cursor-ew-resize z-10"
+                  style={{ left: `${beforeAfterSlider}%` }}
+                  onMouseDown={(e) => {
+                    const container = e.currentTarget.parentElement
+                    const handleMouseMove = (moveEvent: MouseEvent) => {
+                      if (!container) return
+                      const rect = container.getBoundingClientRect()
+                      const x = Math.max(0, Math.min(moveEvent.clientX - rect.left, rect.width))
+                      setBeforeAfterSlider((x / rect.width) * 100)
+                    }
+                    const handleMouseUp = () => {
+                      document.removeEventListener('mousemove', handleMouseMove)
+                      document.removeEventListener('mouseup', handleMouseUp)
+                    }
+                    document.addEventListener('mousemove', handleMouseMove)
+                    document.addEventListener('mouseup', handleMouseUp)
+                  }}
+                  onTouchStart={(e) => {
+                    const container = e.currentTarget.parentElement
+                    const handleTouchMove = (moveEvent: TouchEvent) => {
+                      if (!container) return
+                      const rect = container.getBoundingClientRect()
+                      const x = Math.max(0, Math.min(moveEvent.touches[0].clientX - rect.left, rect.width))
+                      setBeforeAfterSlider((x / rect.width) * 100)
+                    }
+                    const handleTouchEnd = () => {
+                      document.removeEventListener('touchmove', handleTouchMove)
+                      document.removeEventListener('touchend', handleTouchEnd)
+                    }
+                    document.addEventListener('touchmove', handleTouchMove)
+                    document.addEventListener('touchend', handleTouchEnd)
+                  }}
+                >
+                  <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-white rounded-full p-2 shadow-lg">
+                    <div className="flex gap-1">
+                      <ChevronLeft className="h-4 w-4 text-gray-700" />
+                      <ChevronRight className="h-4 w-4 text-gray-700" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Labels */}
+                <div className="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 rounded text-sm font-medium">
+                  Avant
+                </div>
+                <div className="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded text-sm font-medium">
+                  Après
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
           <div className="text-center mt-8">
-            <Link href="#pricing">
+              <Link href="#pricing">
               <Button size="lg">
                 Essayer le Home Staging
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -150,13 +188,89 @@ export default function HomeStagingLandingPage() {
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto">
-            <Compare
-              leftImage="/renove.jpg"
-              rightImage="/renove-after.jpg"
-              leftImageLabel="Avant"
-              rightImageLabel="Après"
-            />
+          <Card className="overflow-hidden max-w-4xl mx-auto">
+            <CardContent className="p-0">
+              <div className="relative w-full h-[400px] bg-gray-100">
+                {/* Image de fond */}
+                <img 
+                  src="/renove-after.jpg" 
+                  alt="Pièce rénovée"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                
+                {/* Image superposée avec clip */}
+                <div 
+                  className="absolute inset-0"
+                  style={{ clipPath: `inset(0 ${100 - renovationSlider}% 0 0)` }}
+                >
+                  <img 
+                    src="/renove.jpg" 
+                    alt="Pièce avant rénovation"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                {/* Curseur */}
+                <div 
+                  className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize shadow-xl z-[20]"
+                  style={{ left: `${renovationSlider}%` }}
+                  onMouseDown={(e) => {
+                    const container = e.currentTarget.parentElement
+                    const handleMouseMove = (moveEvent: MouseEvent) => {
+                      if (!container) return
+                      const rect = container.getBoundingClientRect()
+                      const x = Math.max(0, Math.min(moveEvent.clientX - rect.left, rect.width))
+                      setRenovationSlider((x / rect.width) * 100)
+                    }
+                    const handleMouseUp = () => {
+                      document.removeEventListener('mousemove', handleMouseMove)
+                      document.removeEventListener('mouseup', handleMouseUp)
+                    }
+                    document.addEventListener('mousemove', handleMouseMove)
+                    document.addEventListener('mouseup', handleMouseUp)
+                  }}
+                  onTouchStart={(e) => {
+                    const container = e.currentTarget.parentElement
+                    const handleTouchMove = (moveEvent: TouchEvent) => {
+                      if (!container) return
+                      const rect = container.getBoundingClientRect()
+                      const x = Math.max(0, Math.min(moveEvent.touches[0].clientX - rect.left, rect.width))
+                      setRenovationSlider((x / rect.width) * 100)
+                    }
+                    const handleTouchEnd = () => {
+                      document.removeEventListener('touchmove', handleTouchMove)
+                      document.removeEventListener('touchend', handleTouchEnd)
+                    }
+                    document.addEventListener('touchmove', handleTouchMove)
+                    document.addEventListener('touchend', handleTouchEnd)
+                  }}
+                >
+                  <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-white rounded-full p-2 shadow-lg">
+                    <div className="flex gap-1">
+                      <ChevronLeft className="h-4 w-4 text-gray-700" />
+                      <ChevronRight className="h-4 w-4 text-gray-700" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Labels */}
+                <div className="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 rounded text-sm font-medium z-[10]">
+                  Avant
+                </div>
+                <div className="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded text-sm font-medium z-[10]">
+                  Après
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <div className="text-center mt-8">
+              <Link href="#pricing">
+              <Button size="lg" variant="outline">
+                Visualiser ma rénovation
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -368,49 +482,8 @@ export default function HomeStagingLandingPage() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-20 bg-muted/30">
-        <div className="container max-w-6xl mx-auto px-4">
-          <div className="text-center space-y-4 mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold">Ce que disent nos clients</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Des centaines d'agences immobilières nous font confiance
-            </p>
-          </div>
-
-          <Testimonials
-            testimonials={[
-              {
-                name: "Marie Dubois",
-                role: "Directrice",
-                company: "ImmoPro Paris",
-                image: "/testimonial-1.jpg",
-                content: "BaoraHome a complètement transformé notre façon de présenter nos biens. Nos annonces se vendent 40% plus vite depuis qu'on utilise le home staging virtuel.",
-                rating: 5
-              },
-              {
-                name: "Thomas Martin",
-                role: "Agent immobilier",
-                company: "Agence Lyon Sud",
-                image: "/testimonial-2.jpg",
-                content: "L'outil est incroyablement simple à utiliser. En quelques secondes, je transforme une pièce vide en un intérieur qui fait rêver. Mes clients adorent !",
-                rating: 5
-              },
-              {
-                name: "Sophie Laurent",
-                role: "Fondatrice",
-                company: "Luxury Real Estate",
-                image: "/testimonial-3.jpg",
-                content: "Le rapport qualité-prix est imbattable. Pour 29€/mois, j'ai accès à un service professionnel qui me fait gagner des heures de travail.",
-                rating: 5
-              }
-            ]}
-          />
-        </div>
-      </section>
-
       {/* CTA Section */}
-      <section className="py-20">
+      <section className="py-20 bg-muted/30">
         <div className="container max-w-6xl mx-auto px-4">
           <Card className="border-green-400/40 bg-green-400/10">
             <CardContent className="p-12 text-center space-y-6">
