@@ -98,7 +98,7 @@ export default function HomeStagingLandingPage() {
               },
               {
                 name: "Orpi",
-                url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Logo_ORPI.svg/200px-Logo_ORPI.svg.png"
+                url: "/orpi.png"
               },
               {
                 name: "Guy Hoquet",
@@ -106,11 +106,11 @@ export default function HomeStagingLandingPage() {
               },
               {
                 name: "Laforêt",
-                url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Logo_Lafor%C3%AAt.svg/200px-Logo_Lafor%C3%AAt.svg.png"
+                url: "/laforet.png"
               },
               {
                 name: "ERA",
-                url: "https://www.era-immobilier.com/images/logo-era.svg"
+                url: "/era.png"
               },
               {
                 name: "Nexity",
@@ -118,7 +118,7 @@ export default function HomeStagingLandingPage() {
               },
               {
                 name: "Foncia",
-                url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Foncia_logo.svg/200px-Foncia_logo.svg.png"
+                url: "/foncia.png"
               },
               {
                 name: "Re/Max",
