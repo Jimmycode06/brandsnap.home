@@ -516,31 +516,55 @@ export default function HomeStagingLandingPage() {
             cards={[
               {
                 id: 1,
-                className: "col-span-1 md:col-span-2 row-span-2 h-[300px] md:h-[600px]",
-                src: "/after-furnished-room.jpg",
-                title: "Salon moderne",
-                description: "Transformation complète d'un salon vide"
+                content: (
+                  <div>
+                    <p className="font-bold md:text-4xl text-xl text-white">Salon moderne</p>
+                    <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
+                      Transformation complète d&apos;un salon vide en intérieur chaleureux et accueillant.
+                    </p>
+                  </div>
+                ),
+                className: "md:col-span-2",
+                thumbnail: "/after-furnished-room.jpg"
               },
               {
                 id: 2,
-                className: "col-span-1 row-span-1 h-[300px]",
-                src: "/renove-after.jpg",
-                title: "Cuisine rénovée",
-                description: "Visualisation avant/après"
+                content: (
+                  <div>
+                    <p className="font-bold md:text-4xl text-xl text-white">Cuisine rénovée</p>
+                    <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
+                      Visualisation avant/après d&apos;une cuisine entièrement rénovée.
+                    </p>
+                  </div>
+                ),
+                className: "col-span-1",
+                thumbnail: "/renove-after.jpg"
               },
               {
                 id: 3,
-                className: "col-span-1 row-span-1 h-[300px]",
-                src: "/before-empty-room.jpg",
-                title: "Chambre élégante",
-                description: "Home staging chambre"
+                content: (
+                  <div>
+                    <p className="font-bold md:text-4xl text-xl text-white">Chambre élégante</p>
+                    <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
+                      Home staging d&apos;une chambre pour maximiser l&apos;attractivité du bien.
+                    </p>
+                  </div>
+                ),
+                className: "col-span-1",
+                thumbnail: "/before-empty-room.jpg"
               },
               {
                 id: 4,
-                className: "col-span-1 md:col-span-2 row-span-1 h-[300px]",
-                src: "/renove.jpg",
-                title: "Projet rénovation",
-                description: "Visualisation de travaux"
+                content: (
+                  <div>
+                    <p className="font-bold md:text-4xl text-xl text-white">Projet rénovation</p>
+                    <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
+                      Visualisation de travaux de rénovation avant même de commencer.
+                    </p>
+                  </div>
+                ),
+                className: "md:col-span-2",
+                thumbnail: "/renove.jpg"
               }
             ]}
           />
