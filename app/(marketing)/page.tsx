@@ -150,7 +150,6 @@ export default function HomeStagingLandingPage() {
                       "Un MUST-HAVE pour la vente immobilière. Le home staging virtuel a transformé notre façon de présenter nos biens. Nos annonces se vendent 40% plus vite et nos clients adorent voir le potentiel de leur futur logement. Un vrai game changer pour toute agence ambitieuse."
                     </p>
                     <div>
-                      <p className="font-semibold text-lg">Client anonyme</p>
                       <p className="text-sm text-muted-foreground">Directrice • Agence immobilière</p>
                     </div>
                   </div>
@@ -421,7 +420,6 @@ export default function HomeStagingLandingPage() {
                       "On a choisi BaoraHome pour son home staging virtuel. L'interface est super intuitive et nous fait gagner un temps fou. Nos annonces se vendent beaucoup plus vite."
                     </p>
                     <div>
-                      <p className="font-semibold">Client anonyme</p>
                       <p className="text-sm text-muted-foreground">Business Growth Manager • Agence immobilière</p>
                     </div>
                   </div>
@@ -443,7 +441,6 @@ export default function HomeStagingLandingPage() {
                       "Dans le métier d'agent immobilier, l'organisation et la régularité font vraiment la différence. J'ai gagné énormément en productivité avec BaoraHome."
                     </p>
                     <div>
-                      <p className="font-semibold">Client anonyme</p>
                       <p className="text-sm text-muted-foreground">Partnerships Manager • Agence immobilière</p>
                     </div>
                   </div>
@@ -465,7 +462,6 @@ export default function HomeStagingLandingPage() {
                       "L'automatisation des transformations est ultra puissant. En 30 secondes, je transforme une pièce vide en un intérieur qui fait rêver. Mes clients adorent !"
                     </p>
                     <div>
-                      <p className="font-semibold">Client anonyme</p>
                       <p className="text-sm text-muted-foreground">Sales Manager • Agence immobilière</p>
                     </div>
                   </div>
@@ -487,7 +483,6 @@ export default function HomeStagingLandingPage() {
                       "On a plus de problème de présentation. Avec BaoraHome, nos biens se vendent beaucoup plus rapidement et nos clients voient vraiment le potentiel."
                     </p>
                     <div>
-                      <p className="font-semibold">Client anonyme</p>
                       <p className="text-sm text-muted-foreground">Head of Growth • Agence immobilière</p>
                     </div>
                   </div>
