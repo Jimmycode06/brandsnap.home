@@ -85,7 +85,7 @@ export default function HomeStagingLandingPage() {
       </section>
 
       {/* Logos Carousel Section */}
-      <section className="py-12 border-y">
+      <section className="py-12">
         <div className="container max-w-6xl mx-auto px-4">
           <div className="text-center mb-8">
             <p className="text-sm text-muted-foreground font-medium">
