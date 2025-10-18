@@ -563,7 +563,7 @@ export default function HomeStagingLandingPage() {
                     </p>
                   </div>
                 ),
-                className: "md:col-span-2 h-[300px]",
+                className: "md:col-span-2 h-[300px] overflow-hidden",
                 thumbnail: "/home3.jpg"
               }
             ]}
