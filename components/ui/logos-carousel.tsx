@@ -40,7 +40,7 @@ export function LogosCarousel({
   return (
     <div className="w-full overflow-hidden py-12">
       <div
-        className="flex gap-16 animate-scroll"
+        className="flex gap-8 animate-scroll"
         style={{
           animationDirection: direction === "right" ? "reverse" : "normal",
           animationDuration: `${speed}s`,
