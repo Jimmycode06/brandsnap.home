@@ -557,9 +557,9 @@ export default function HomeStagingLandingPage() {
                 id: 4,
                 content: (
                   <div>
-                    <p className="font-bold md:text-4xl text-xl text-white">Projet rénovation</p>
+                    <p className="font-bold md:text-4xl text-xl text-white">Salon cuisine ouvert</p>
                     <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
-                      Visualisation de travaux de rénovation avant même de commencer.
+                      Transformation d&apos;un espace en salon cuisine moderne et convivial.
                     </p>
                   </div>
                 ),
