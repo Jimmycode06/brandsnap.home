@@ -2,10 +2,11 @@
 
 import { ReactNode } from "react"
 import Link from "next/link"
+import type { Url } from "url"
 
 interface Button3DProps {
   children: ReactNode
-  href?: string
+  href?: string | Url
   onClick?: () => void
   className?: string
   variant?: "primary" | "secondary"
