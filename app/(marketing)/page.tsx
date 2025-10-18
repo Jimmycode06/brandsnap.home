@@ -13,6 +13,7 @@ import { useCredits } from '@/contexts/credit-context'
 import { ArrowRight, CheckCircle, Clock, TrendingUp, Zap, ChevronLeft, ChevronRight, Upload, MessageSquare, Download, Home } from 'lucide-react'
 import { LogosCarousel } from '@/components/ui/logos-carousel'
 import { Button3D } from '@/components/ui/button-3d'
+import { LayoutGrid } from '@/components/ui/layout-grid'
 
 export default function HomeStagingLandingPage() {
   const [beforeAfterSlider, setBeforeAfterSlider] = useState(50)
@@ -502,6 +503,53 @@ export default function HomeStagingLandingPage() {
               <ArrowRight className="h-5 w-5" />
             </Button3D>
           </div>
+        </div>
+      </section>
+
+      {/* Gallery Section */}
+      <section className="py-20">
+        <div className="container max-w-6xl mx-auto px-4">
+          <div className="text-center space-y-4 mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold">
+              Nos réalisations
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Découvrez des exemples de transformations réalisées avec BaoraHome
+            </p>
+          </div>
+
+          <LayoutGrid
+            cards={[
+              {
+                id: 1,
+                className: "col-span-1 md:col-span-2 row-span-2",
+                src: "/after-furnished-room.jpg",
+                title: "Salon moderne",
+                description: "Transformation complète d'un salon vide"
+              },
+              {
+                id: 2,
+                className: "col-span-1 row-span-1",
+                src: "/renove-after.jpg",
+                title: "Cuisine rénovée",
+                description: "Visualisation avant/après"
+              },
+              {
+                id: 3,
+                className: "col-span-1 row-span-1",
+                src: "/before-empty-room.jpg",
+                title: "Chambre élégante",
+                description: "Home staging chambre"
+              },
+              {
+                id: 4,
+                className: "col-span-1 md:col-span-2 row-span-1",
+                src: "/renove.jpg",
+                title: "Projet rénovation",
+                description: "Visualisation de travaux"
+              }
+            ]}
+          />
         </div>
       </section>
 
