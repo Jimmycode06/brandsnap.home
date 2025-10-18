@@ -110,7 +110,7 @@ export default function DashboardPage() {
   if (authLoading || isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-green-400" />
+        <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
       </div>
     )
   }
@@ -181,7 +181,7 @@ export default function DashboardPage() {
                         className="object-cover w-full h-full"
                       />
                       <div className="absolute top-2 left-2">
-                        <span className="bg-green-400/90 text-black px-2 py-1 rounded text-xs font-medium">
+                        <span className="bg-blue-500/90 text-white px-2 py-1 rounded text-xs font-medium">
                           Home Staging
                         </span>
                       </div>
