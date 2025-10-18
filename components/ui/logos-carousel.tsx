@@ -52,14 +52,14 @@ export function LogosCarousel({
         {logos.map((logo, index) => (
           <div
             key={index}
-            className="flex items-center justify-center min-w-[120px] h-12"
+            className="flex items-center justify-center min-w-[180px] h-16"
           >
             <img
               src={logo.url}
               alt={logo.name}
-              width={logo.width || 120}
-              height={logo.height || 48}
-              className="max-h-12 w-auto object-contain"
+              width={logo.width || 180}
+              height={logo.height || 64}
+              className="max-h-16 w-auto object-contain"
             />
           </div>
         ))}

@@ -101,8 +101,8 @@ export default function HomeStagingLandingPage() {
                 url: "/orpi.png"
               },
               {
-                name: "Guy Hoquet",
-                url: "https://www.guyhoquet.fr/images/logo-guy-hoquet.svg"
+                name: "IAD",
+                url: "/iad.png"
               },
               {
                 name: "Laforêt",
