@@ -2,11 +2,10 @@
 
 import { ReactNode } from "react"
 import Link from "next/link"
-import type { Url } from "url"
 
 interface Button3DProps {
   children: ReactNode
-  href?: string | Url
+  href?: string
   onClick?: () => void
   className?: string
   variant?: "primary" | "secondary"
@@ -33,7 +32,7 @@ export function Button3D({
 
   if (href) {
     return (
-      <Link href={href} className={`${baseClasses} ${variantClasses} ${className}`}>
+      <Link href={href as any} className={`${baseClasses} ${variantClasses} ${className}`}>
         {content}
       </Link>
     )
