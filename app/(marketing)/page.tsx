@@ -229,12 +229,6 @@ export default function HomeStagingLandingPage() {
                     document.addEventListener('touchend', handleTouchEnd)
                   }}
                 >
-                  <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-white rounded-full p-2 shadow-lg">
-                    <div className="flex gap-1">
-                      <ChevronLeft className="h-4 w-4 text-gray-700" />
-                      <ChevronRight className="h-4 w-4 text-gray-700" />
-                    </div>
-                  </div>
                 </div>
 
                 {/* Labels */}
