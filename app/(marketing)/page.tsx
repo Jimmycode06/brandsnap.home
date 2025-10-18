@@ -94,7 +94,7 @@ export default function HomeStagingLandingPage() {
             logos={[
               {
                 name: "Century 21",
-                url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Century_21_logo.svg/200px-Century_21_logo.svg.png"
+                url: "/century21.png"
               },
               {
                 name: "Orpi",
