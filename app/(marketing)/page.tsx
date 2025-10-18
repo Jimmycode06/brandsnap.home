@@ -114,7 +114,7 @@ export default function HomeStagingLandingPage() {
               },
               {
                 name: "Nexity",
-                url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Nexity_logo.svg/200px-Nexity_logo.svg.png"
+                url: "/nexity.png"
               },
               {
                 name: "Foncia",
