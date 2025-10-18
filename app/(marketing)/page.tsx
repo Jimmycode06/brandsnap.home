@@ -522,28 +522,28 @@ export default function HomeStagingLandingPage() {
             cards={[
               {
                 id: 1,
-                className: "col-span-1 md:col-span-2 row-span-2",
+                className: "col-span-1 md:col-span-2 row-span-2 h-[300px] md:h-[600px]",
                 src: "/after-furnished-room.jpg",
                 title: "Salon moderne",
                 description: "Transformation complète d'un salon vide"
               },
               {
                 id: 2,
-                className: "col-span-1 row-span-1",
+                className: "col-span-1 row-span-1 h-[300px]",
                 src: "/renove-after.jpg",
                 title: "Cuisine rénovée",
                 description: "Visualisation avant/après"
               },
               {
                 id: 3,
-                className: "col-span-1 row-span-1",
+                className: "col-span-1 row-span-1 h-[300px]",
                 src: "/before-empty-room.jpg",
                 title: "Chambre élégante",
                 description: "Home staging chambre"
               },
               {
                 id: 4,
-                className: "col-span-1 md:col-span-2 row-span-1",
+                className: "col-span-1 md:col-span-2 row-span-1 h-[300px]",
                 src: "/renove.jpg",
                 title: "Projet rénovation",
                 description: "Visualisation de travaux"
