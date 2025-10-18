@@ -12,6 +12,7 @@ import { useAuth } from '@/contexts/auth-context'
 import { useCredits } from '@/contexts/credit-context'
 import { ArrowRight, CheckCircle, Clock, TrendingUp, Zap, ChevronLeft, ChevronRight, Upload, MessageSquare, Download, Home } from 'lucide-react'
 import { LogosCarousel } from '@/components/ui/logos-carousel'
+import { Button3D } from '@/components/ui/button-3d'
 
 export default function HomeStagingLandingPage() {
   const [beforeAfterSlider, setBeforeAfterSlider] = useState(50)
@@ -68,11 +69,13 @@ export default function HomeStagingLandingPage() {
               </p>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <AuthButton />
-              <Button size="lg" variant="outline" asChild>
-                <Link href="#demo">Voir la démo</Link>
-              </Button>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+              <Button3D href="#demo" variant="primary">
+                Commencer gratuitement
+              </Button3D>
+              <Button3D href="#demo" variant="secondary">
+                Voir la démo
+              </Button3D>
             </div>
 
             <p className="text-sm text-muted-foreground">
