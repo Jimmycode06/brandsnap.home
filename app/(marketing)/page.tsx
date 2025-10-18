@@ -87,7 +87,7 @@ export default function HomeStagingLandingPage() {
         <div className="container max-w-6xl mx-auto px-4">
           <div className="text-center mb-8">
             <p className="text-sm text-muted-foreground font-medium">
-              Rejoint par les meilleures agences immobilières
+              +40% de taux de clic sur vos annonces grâce au home staging virtuel
             </p>
           </div>
           <LogosCarousel
