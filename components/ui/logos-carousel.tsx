@@ -52,7 +52,7 @@ export function LogosCarousel({
         {logos.map((logo, index) => (
           <div
             key={index}
-            className="flex items-center justify-center min-w-[180px] h-14"
+            className="flex items-center justify-center min-w-[180px] h-14 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-300"
           >
             <img
               src={logo.url}
