@@ -70,9 +70,7 @@ export default function HomeStagingLandingPage() {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-              <Button3D href="#demo" variant="primary">
-                Commencer gratuitement
-              </Button3D>
+              <AuthButton />
               <Button3D href="#demo" variant="secondary">
                 Voir la démo
               </Button3D>
