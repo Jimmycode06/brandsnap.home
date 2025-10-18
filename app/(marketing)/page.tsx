@@ -13,6 +13,7 @@ import { useCredits } from '@/contexts/credit-context'
 import { ArrowRight, CheckCircle, Clock, TrendingUp, Zap, ChevronLeft, ChevronRight, Upload, MessageSquare, Download, Home } from 'lucide-react'
 import { LogosCarousel } from '@/components/ui/logos-carousel'
 import { Button3D } from '@/components/ui/button-3d'
+import { StickyBanner } from '@/components/ui/sticky-banner'
 
 export default function HomeStagingLandingPage() {
   const [beforeAfterSlider, setBeforeAfterSlider] = useState(50)
@@ -32,8 +33,13 @@ export default function HomeStagingLandingPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Sticky Banner */}
+      <StickyBanner hideOnScroll={true}>
+        🎉 Lancement officiel de BaoraHome ! Rejoignez-nous dès maintenant
+      </StickyBanner>
+
       {/* Navbar */}
-      <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <nav className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <img src="/logob.png" alt="BaoraHome" className="h-8 w-8" />
