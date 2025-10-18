@@ -11,6 +11,7 @@ import { PricingButton } from '@/components/pricing-button'
 import { useAuth } from '@/contexts/auth-context'
 import { useCredits } from '@/contexts/credit-context'
 import { ArrowRight, CheckCircle, Clock, TrendingUp, Zap, ChevronLeft, ChevronRight, Upload, MessageSquare, Download, Home } from 'lucide-react'
+import { LogosCarousel } from '@/components/ui/logos-carousel'
 
 export default function HomeStagingLandingPage() {
   const [beforeAfterSlider, setBeforeAfterSlider] = useState(50)
@@ -78,6 +79,56 @@ export default function HomeStagingLandingPage() {
               ⚡ Commencez dès 29€/mois • 30 transformations incluses
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* Logos Carousel Section */}
+      <section className="py-12 border-y">
+        <div className="container max-w-6xl mx-auto px-4">
+          <div className="text-center mb-8">
+            <p className="text-sm text-muted-foreground font-medium">
+              Rejoint par les meilleures agences immobilières
+            </p>
+          </div>
+          <LogosCarousel
+            logos={[
+              {
+                name: "Century 21",
+                url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Century_21_logo.svg/200px-Century_21_logo.svg.png"
+              },
+              {
+                name: "Orpi",
+                url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Logo_ORPI.svg/200px-Logo_ORPI.svg.png"
+              },
+              {
+                name: "Guy Hoquet",
+                url: "https://www.guyhoquet.fr/images/logo-guy-hoquet.svg"
+              },
+              {
+                name: "Laforêt",
+                url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Logo_Lafor%C3%AAt.svg/200px-Logo_Lafor%C3%AAt.svg.png"
+              },
+              {
+                name: "ERA",
+                url: "https://www.era-immobilier.com/images/logo-era.svg"
+              },
+              {
+                name: "Nexity",
+                url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Nexity_logo.svg/200px-Nexity_logo.svg.png"
+              },
+              {
+                name: "Foncia",
+                url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Foncia_logo.svg/200px-Foncia_logo.svg.png"
+              },
+              {
+                name: "Re/Max",
+                url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/REMAX_logo.svg/200px-REMAX_logo.svg.png"
+              }
+            ]}
+            speed={60}
+            direction="left"
+            pauseOnHover={true}
+          />
         </div>
       </section>
 
