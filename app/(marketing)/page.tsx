@@ -62,7 +62,7 @@ export default function HomeStagingLandingPage() {
             <div className="space-y-4">
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
                 L&apos;outil de home staging qui{' '}
-                <span className="text-blue-500">décroche vraiment des visites</span>
+                <span className="text-blue-600">décroche vraiment des visites</span>
               </h1>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
                 Transformez vos biens vides en intérieurs meublés et augmentez vos taux de clic de 40%. Uploadez vos photos, décrivez vos idées, et obtenez des visuels professionnels en 30 secondes.
@@ -350,7 +350,7 @@ export default function HomeStagingLandingPage() {
         <div className="container max-w-6xl mx-auto px-4">
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-3xl md:text-4xl font-bold">
-              Vos biens ? <span className="text-blue-500">BaoraHome les transforme</span>
+              Vos biens ? <span className="text-blue-600">BaoraHome les transforme</span>
             </h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
               La solution complète pour valoriser vos biens immobiliers et augmenter vos ventes.
@@ -361,7 +361,7 @@ export default function HomeStagingLandingPage() {
             <Card className="text-center p-6">
               <CardContent className="space-y-4">
                 <div className="w-12 h-12 bg-blue-400/10 rounded-lg mx-auto flex items-center justify-center">
-                  <Clock className="w-6 h-6 text-blue-500" />
+                  <Clock className="w-6 h-6 text-blue-600" />
                 </div>
                 <h3 className="text-xl font-semibold">Gagnez du temps</h3>
                 <p className="text-muted-foreground">
@@ -373,7 +373,7 @@ export default function HomeStagingLandingPage() {
             <Card className="text-center p-6">
               <CardContent className="space-y-4">
                 <div className="w-12 h-12 bg-blue-400/10 rounded-lg mx-auto flex items-center justify-center">
-                  <TrendingUp className="w-6 h-6 text-blue-500" />
+                  <TrendingUp className="w-6 h-6 text-blue-600" />
                 </div>
                 <h3 className="text-xl font-semibold">Augmentez vos ventes</h3>
                 <p className="text-muted-foreground">
@@ -385,7 +385,7 @@ export default function HomeStagingLandingPage() {
             <Card className="text-center p-6">
               <CardContent className="space-y-4">
                 <div className="w-12 h-12 bg-blue-400/10 rounded-lg mx-auto flex items-center justify-center">
-                  <Zap className="w-6 h-6 text-blue-500" />
+                  <Zap className="w-6 h-6 text-blue-600" />
                 </div>
                 <h3 className="text-xl font-semibold">Simple et rapide</h3>
                 <p className="text-muted-foreground">
@@ -519,33 +519,33 @@ export default function HomeStagingLandingPage() {
             {/* Steps */}
             <div className="grid md:grid-cols-3 gap-8">
               <div className="text-center space-y-4">
-                <div className="w-12 h-12 bg-blue-500 text-white rounded-full mx-auto flex items-center justify-center font-bold text-lg">
+                <div className="w-12 h-12 bg-blue-600 text-white rounded-full mx-auto flex items-center justify-center font-bold text-lg">
                   1
                 </div>
                 <div className="space-y-2">
-                  <Upload className="w-8 h-8 text-blue-500 mx-auto" />
+                  <Upload className="w-8 h-8 text-blue-600 mx-auto" />
                   <h3 className="text-xl font-semibold">Uploadez vos photos</h3>
                   <p className="text-muted-foreground">Glissez-déposez les photos de vos pièces vides.</p>
                 </div>
               </div>
               
               <div className="text-center space-y-4">
-                <div className="w-12 h-12 bg-blue-500 text-white rounded-full mx-auto flex items-center justify-center font-bold text-lg">
+                <div className="w-12 h-12 bg-blue-600 text-white rounded-full mx-auto flex items-center justify-center font-bold text-lg">
                   2
                 </div>
                 <div className="space-y-2">
-                  <MessageSquare className="w-8 h-8 text-blue-500 mx-auto" />
+                  <MessageSquare className="w-8 h-8 text-blue-600 mx-auto" />
                   <h3 className="text-xl font-semibold">Décrivez le style</h3>
                   <p className="text-muted-foreground">Ex: &quot;Salon moderne avec canapé gris et plantes&quot;</p>
                 </div>
               </div>
               
               <div className="text-center space-y-4">
-                <div className="w-12 h-12 bg-blue-500 text-white rounded-full mx-auto flex items-center justify-center font-bold text-lg">
+                <div className="w-12 h-12 bg-blue-600 text-white rounded-full mx-auto flex items-center justify-center font-bold text-lg">
                   3
                 </div>
                 <div className="space-y-2">
-                  <Download className="w-8 h-8 text-blue-500 mx-auto" />
+                  <Download className="w-8 h-8 text-blue-600 mx-auto" />
                   <h3 className="text-xl font-semibold">Téléchargez</h3>
                   <p className="text-muted-foreground">Votre photo transformée est prête à publier.</p>
                 </div>
@@ -554,7 +554,7 @@ export default function HomeStagingLandingPage() {
             
             {/* Home Icon - Centered below steps */}
             <div className="text-center py-8">
-              <Home className="w-32 h-32 text-blue-500 mx-auto mb-4" />
+              <Home className="w-32 h-32 text-blue-600 mx-auto mb-4" />
               <p className="text-lg text-muted-foreground">Home Staging Virtuel IA</p>
             </div>
           </div>
@@ -576,7 +576,7 @@ export default function HomeStagingLandingPage() {
               <CardContent className="p-6 space-y-4">
                 <div className="flex items-center justify-between">
                   <h3 className="text-2xl font-bold">Starter</h3>
-                  <span className="bg-blue-400/10 text-blue-500 px-2 py-1 rounded text-xs font-medium">
+                  <span className="bg-blue-400/10 text-blue-600 px-2 py-1 rounded text-xs font-medium">
                     Populaire
                   </span>
                 </div>
@@ -584,15 +584,15 @@ export default function HomeStagingLandingPage() {
                 <p className="text-muted-foreground">Pour débuter</p>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="h-5 w-5 text-blue-500 mt-0.5 flex-shrink-0" />
+                    <CheckCircle className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span className="text-sm">30 transformations/mois</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="h-5 w-5 text-blue-500 mt-0.5 flex-shrink-0" />
+                    <CheckCircle className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span className="text-sm">Résolution 4K</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="h-5 w-5 text-blue-500 mt-0.5 flex-shrink-0" />
+                    <CheckCircle className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span className="text-sm">Support email</span>
                   </li>
                 </ul>
@@ -610,15 +610,15 @@ export default function HomeStagingLandingPage() {
                 <p className="text-muted-foreground">Pour les agences</p>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="h-5 w-5 text-blue-500 mt-0.5 flex-shrink-0" />
+                    <CheckCircle className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span className="text-sm">100 transformations/mois</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="h-5 w-5 text-blue-500 mt-0.5 flex-shrink-0" />
+                    <CheckCircle className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span className="text-sm">Résolution 4K</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="h-5 w-5 text-blue-500 mt-0.5 flex-shrink-0" />
+                    <CheckCircle className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span className="text-sm">Support prioritaire</span>
                   </li>
                 </ul>
@@ -637,19 +637,19 @@ export default function HomeStagingLandingPage() {
                 <p className="text-muted-foreground">Pour les grands réseaux</p>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="h-5 w-5 text-blue-500 mt-0.5 flex-shrink-0" />
+                    <CheckCircle className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span className="text-sm">Transformations illimitées</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="h-5 w-5 text-blue-500 mt-0.5 flex-shrink-0" />
+                    <CheckCircle className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span className="text-sm">Formation personnalisée</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="h-5 w-5 text-blue-500 mt-0.5 flex-shrink-0" />
+                    <CheckCircle className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span className="text-sm">Support dédié 24/7</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="h-5 w-5 text-blue-500 mt-0.5 flex-shrink-0" />
+                    <CheckCircle className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span className="text-sm">Intégration personnalisée</span>
                   </li>
                 </ul>
@@ -735,7 +735,7 @@ export default function HomeStagingLandingPage() {
                 © {new Date().getFullYear()} BaoraHome. Home Staging Virtuel pour Agences Immobilières.
               </p>
               <div className="text-xs text-muted-foreground text-center md:text-right">
-                Powered by <span className="text-blue-500">Artificial Intelligence</span>
+                Powered by <span className="text-blue-600">Artificial Intelligence</span>
               </div>
             </div>
           </div>

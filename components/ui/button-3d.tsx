@@ -21,7 +21,7 @@ export function Button3D({
   const baseClasses = "group relative inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white transition-all duration-300 ease-out hover:scale-105 active:scale-95 rounded-lg"
   
   const variantClasses = variant === "primary"
-    ? "bg-blue-500 hover:bg-blue-600 shadow-[0_4px_0_0_rgba(59,130,246,0.8)] hover:shadow-[0_2px_0_0_rgba(59,130,246,0.8)] active:shadow-[0_1px_0_0_rgba(59,130,246,0.8)]"
+    ? "bg-blue-600 hover:bg-blue-700 shadow-[0_4px_0_0_rgba(37,99,235,0.8)] hover:shadow-[0_2px_0_0_rgba(37,99,235,0.8)] active:shadow-[0_1px_0_0_rgba(37,99,235,0.8)]"
     : "bg-gray-800 hover:bg-gray-900 shadow-[0_4px_0_0_rgba(31,41,55,0.8)] hover:shadow-[0_2px_0_0_rgba(31,41,55,0.8)] active:shadow-[0_1px_0_0_rgba(31,41,55,0.8)]"
 
   const content = (

@@ -12,7 +12,7 @@ export function CreditDisplay() {
   return (
     <div className="flex items-center gap-3">
       {/* Credits Display - Bleu */}
-      <div className="flex items-center gap-2 px-3 py-1.5 bg-blue-500 dark:bg-blue-600 rounded-full border border-blue-600 dark:border-blue-500 shadow-lg">
+      <div className="flex items-center gap-2 px-3 py-1.5 bg-blue-600 dark:bg-blue-700 rounded-full border border-blue-700 dark:border-blue-600 shadow-lg">
         <Zap className="h-4 w-4 text-white" />
         <span className="text-xs text-white">
           {isTrial && '🎁 '}

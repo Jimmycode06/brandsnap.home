@@ -98,7 +98,7 @@ export default function UpgradePage() {
             {/* Plan Professional */}
             <Card className="border-blue-400/40 bg-blue-400/5 relative">
               <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                <span className="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-medium">
+                <span className="bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-medium">
                   Recommandé
                 </span>
               </div>
