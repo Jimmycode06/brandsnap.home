@@ -13,7 +13,7 @@ export default function UpgradePage() {
       <header className="border-b">
         <div className="container max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <img src="/logoa.png" alt="BaoraHome" className="h-8 w-8" />
+            <img src="/logob.png" alt="BaoraHome" className="h-8 w-8" />
             <span className="text-lg font-semibold">BaoraHome</span>
           </Link>
           <Link href="/home-staging">
@@ -221,7 +221,7 @@ export default function UpgradePage() {
       <footer className="py-8 border-t">
         <div className="container max-w-4xl mx-auto px-4">
           <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-            <img src="/logoa.png" alt="BaoraHome" className="h-6 w-6" />
+            <img src="/logob.png" alt="BaoraHome" className="h-6 w-6" />
             <span>BaoraHome</span>
             <span>•</span>
             <span>Powered by <span className="text-blue-500">Artificial Intelligence</span></span>

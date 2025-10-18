@@ -35,7 +35,7 @@ export default function HomeStagingLandingPage() {
       <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <img src="/logoa.png" alt="BaoraHome" className="h-8 w-8" />
+            <img src="/logob.png" alt="BaoraHome" className="h-8 w-8" />
             <span className="text-lg font-semibold">BaoraHome</span>
           </Link>
           
@@ -763,7 +763,7 @@ export default function HomeStagingLandingPage() {
           <div className="text-center space-y-8">
             {/* Logo and Brand */}
             <div className="flex items-center justify-center gap-4">
-              <img src="/logoa.png" alt="BaoraHome" className="h-16 w-16" />
+              <img src="/logob.png" alt="BaoraHome" className="h-16 w-16" />
               <span className="text-4xl font-bold">BaoraHome</span>
             </div>
             
