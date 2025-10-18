@@ -564,7 +564,7 @@ export default function HomeStagingLandingPage() {
                   </div>
                 ),
                 className: "md:col-span-2 h-[300px]",
-                thumbnail: "/renove.jpg"
+                thumbnail: "/home3.jpg"
               }
             ]}
           />
