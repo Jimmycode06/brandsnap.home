@@ -1,7 +1,6 @@
 "use client"
 
-import { ReactNode, useState } from "react"
-import { motion } from "framer-motion"
+import { useState } from "react"
 import { cn } from "@/lib/utils"
 
 export const LayoutGrid = ({ cards }: { cards: LayoutGridCard[] }) => {
@@ -11,15 +10,12 @@ export const LayoutGrid = ({ cards }: { cards: LayoutGridCard[] }) => {
     <div className="w-full h-full py-10 grid grid-cols-1 md:grid-cols-3 gap-4 max-w-7xl mx-auto">
       {cards.map((card, i) => (
         <div key={i} className={cn(card.className, "")}>
-          <motion.div
+          <div
             onClick={() => setSelected(card)}
             className={cn(
-              "relative overflow-hidden",
+              "relative overflow-hidden cursor-pointer transition-transform duration-300 hover:scale-105",
               card.className
             )}
-            layout
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
           >
             <div className="absolute inset-0 z-0">
               <img
@@ -37,7 +33,7 @@ export const LayoutGrid = ({ cards }: { cards: LayoutGridCard[] }) => {
                 )}
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       ))}
     </div>
