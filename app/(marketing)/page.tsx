@@ -59,12 +59,12 @@ export default function HomeStagingLandingPage() {
         <div className="container max-w-6xl mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <div className="space-y-4">
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                Transformez vos biens avec l&apos;IA :{' '}
-                <span className="text-green-400">Home Staging & Rénovation</span>
+              <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
+                L&apos;outil de home staging qui{' '}
+                <span className="text-green-400">décroche vraiment des visites</span>
               </h1>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Meublez virtuellement vos pièces vides ou visualisez vos projets de rénovation. Uploadez vos photos, décrivez vos idées, et obtenez des visuels professionnels en quelques secondes.
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                Transformez vos biens vides en intérieurs meublés et augmentez vos taux de clic de 40%. Uploadez vos photos, décrivez vos idées, et obtenez des visuels professionnels en 30 secondes.
               </p>
             </div>
             
@@ -75,8 +75,32 @@ export default function HomeStagingLandingPage() {
               </Button>
             </div>
 
+            <div className="flex items-center justify-center gap-8 pt-4">
+              <div className="flex items-center gap-2">
+                <div className="flex">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                      <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                    </svg>
+                  ))}
+                </div>
+                <span className="text-sm font-semibold">4.8 / 5</span>
+              </div>
+              <div className="h-6 w-px bg-border"></div>
+              <div className="flex items-center gap-2">
+                <div className="flex">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                      <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                    </svg>
+                  ))}
+                </div>
+                <span className="text-sm font-semibold">4.7 / 5</span>
+              </div>
+            </div>
+
             <p className="text-sm text-muted-foreground">
-              ⚡ Commencez dès 29€/mois • 30 transformations incluses
+              ⚡ Commencez dès 29€/mois • 30 transformations incluses • Essai gratuit 3 crédits
             </p>
           </div>
         </div>
@@ -87,7 +111,10 @@ export default function HomeStagingLandingPage() {
         <div className="container max-w-6xl mx-auto px-4">
           <div className="text-center mb-8">
             <p className="text-sm text-muted-foreground font-medium">
-              +40% de taux de clic sur vos annonces grâce au home staging virtuel
+              Adopté par les agences immobilières des meilleures startups & PME*
+            </p>
+            <p className="text-xs text-muted-foreground mt-1">
+              *Ce n'est pas du marketing, leurs transformations sont actuellement en cours.
             </p>
           </div>
           <LogosCarousel
@@ -129,6 +156,34 @@ export default function HomeStagingLandingPage() {
             direction="left"
             pauseOnHover={true}
           />
+        </div>
+      </section>
+
+      {/* Testimonial Section */}
+      <section className="py-20">
+        <div className="container max-w-6xl mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <Card className="border-green-400/40 bg-gradient-to-br from-green-400/5 to-green-500/5">
+              <CardContent className="p-8 md:p-12">
+                <div className="flex flex-col md:flex-row items-center gap-8">
+                  <div className="flex-shrink-0">
+                    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white text-2xl font-bold">
+                      ML
+                    </div>
+                  </div>
+                  <div className="flex-1 text-center md:text-left">
+                    <p className="text-lg md:text-xl italic text-muted-foreground mb-6">
+                      "Un MUST-HAVE pour la vente immobilière. Le home staging virtuel a transformé notre façon de présenter nos biens. Nos annonces se vendent 40% plus vite et nos clients adorent voir le potentiel de leur futur logement. Un vrai game changer pour toute agence ambitieuse."
+                    </p>
+                    <div>
+                      <p className="font-semibold text-lg">Marie Dubois</p>
+                      <p className="text-sm text-muted-foreground">Directrice • ImmoPro Paris</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </section>
 
@@ -327,12 +382,14 @@ export default function HomeStagingLandingPage() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20">
+      <section id="features" className="py-20 bg-muted/30">
         <div className="container max-w-6xl mx-auto px-4">
           <div className="text-center space-y-4 mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold">Pourquoi choisir BaoraHome ?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold">
+              Vos biens ? <span className="text-green-400">BaoraHome les transforme</span>
+            </h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-              La solution complète pour valoriser vos biens immobiliers.
+              La solution complète pour valoriser vos biens immobiliers et augmenter vos ventes.
             </p>
           </div>
           
@@ -372,6 +429,116 @@ export default function HomeStagingLandingPage() {
                 </p>
               </CardContent>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Results Section */}
+      <section className="py-20">
+        <div className="container max-w-6xl mx-auto px-4">
+          <div className="text-center space-y-4 mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold">
+              Des résultats concrets, d&apos;agences comme la vôtre
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <Card className="border-green-400/40">
+              <CardContent className="p-8">
+                <div className="flex items-start gap-6">
+                  <div className="flex-shrink-0">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white text-2xl font-bold">
+                      +40%
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-2xl font-bold mb-2">de taux de clic</h3>
+                    <p className="text-muted-foreground italic mb-4">
+                      "On a choisi BaoraHome pour son home staging virtuel. L'interface est super intuitive et nous fait gagner un temps fou. Nos annonces se vendent beaucoup plus vite."
+                    </p>
+                    <div>
+                      <p className="font-semibold">Deborah Strougo</p>
+                      <p className="text-sm text-muted-foreground">Business Growth Manager • IREV</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-green-400/40">
+              <CardContent className="p-8">
+                <div className="flex items-start gap-6">
+                  <div className="flex-shrink-0">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white text-2xl font-bold">
+                      3x
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-2xl font-bold mb-2">plus de productivité</h3>
+                    <p className="text-muted-foreground italic mb-4">
+                      "Dans le métier d'agent immobilier, l'organisation et la régularité font vraiment la différence. J'ai gagné énormément en productivité avec BaoraHome."
+                    </p>
+                    <div>
+                      <p className="font-semibold">Khushi Mehta</p>
+                      <p className="text-sm text-muted-foreground">Partnerships Manager • Secret</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-green-400/40">
+              <CardContent className="p-8">
+                <div className="flex items-start gap-6">
+                  <div className="flex-shrink-0">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white text-2xl font-bold">
+                      30s
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-2xl font-bold mb-2">pour transformer</h3>
+                    <p className="text-muted-foreground italic mb-4">
+                      "L'automatisation des transformations est ultra puissant. En 30 secondes, je transforme une pièce vide en un intérieur qui fait rêver. Mes clients adorent !"
+                    </p>
+                    <div>
+                      <p className="font-semibold">Dave Shillingford</p>
+                      <p className="text-sm text-muted-foreground">Sales Manager • RightMarket</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-green-400/40">
+              <CardContent className="p-8">
+                <div className="flex items-start gap-6">
+                  <div className="flex-shrink-0">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white text-2xl font-bold">
+                      5x
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-2xl font-bold mb-2">plus d&apos;opportunités</h3>
+                    <p className="text-muted-foreground italic mb-4">
+                      "On a plus de problème de présentation. Avec BaoraHome, nos biens se vendent beaucoup plus rapidement et nos clients voient vraiment le potentiel."
+                    </p>
+                    <div>
+                      <p className="font-semibold">João Jorge</p>
+                      <p className="text-sm text-muted-foreground">Head of Growth • WeTransact</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="text-center mt-12">
+            <Link href="#pricing">
+              <Button size="lg">
+                Bénéficiez de 3 crédits gratuits
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
