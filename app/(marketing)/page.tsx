@@ -87,10 +87,7 @@ export default function HomeStagingLandingPage() {
         <div className="container max-w-6xl mx-auto px-4">
           <div className="text-center mb-8">
             <p className="text-sm text-muted-foreground font-medium">
-              Adopté par les agences immobilières des meilleures startups & PME*
-            </p>
-            <p className="text-xs text-muted-foreground mt-1">
-              *Ce n'est pas du marketing, leurs transformations sont actuellement en cours.
+              Adopté par les agences immobilières des meilleures startups & PME
             </p>
           </div>
           <LogosCarousel
