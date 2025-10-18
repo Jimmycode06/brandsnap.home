@@ -524,7 +524,7 @@ export default function HomeStagingLandingPage() {
                     </p>
                   </div>
                 ),
-                className: "md:col-span-2",
+                className: "md:col-span-2 h-[300px] md:h-[600px]",
                 thumbnail: "/after-furnished-room.jpg"
               },
               {
@@ -537,7 +537,7 @@ export default function HomeStagingLandingPage() {
                     </p>
                   </div>
                 ),
-                className: "col-span-1",
+                className: "col-span-1 h-[300px]",
                 thumbnail: "/renove-after.jpg"
               },
               {
@@ -550,7 +550,7 @@ export default function HomeStagingLandingPage() {
                     </p>
                   </div>
                 ),
-                className: "col-span-1",
+                className: "col-span-1 h-[300px]",
                 thumbnail: "/before-empty-room.jpg"
               },
               {
@@ -563,7 +563,7 @@ export default function HomeStagingLandingPage() {
                     </p>
                   </div>
                 ),
-                className: "md:col-span-2",
+                className: "md:col-span-2 h-[300px]",
                 thumbnail: "/renove.jpg"
               }
             ]}
