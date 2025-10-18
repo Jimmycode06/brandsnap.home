@@ -250,12 +250,10 @@ export default function HomeStagingLandingPage() {
           </Card>
 
           <div className="text-center mt-8">
-              <Link href="#pricing">
-              <Button size="lg">
-                Essayer le Home Staging
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
+            <Button3D href="#pricing" variant="primary">
+              Essayer le Home Staging
+              <ArrowRight className="h-5 w-5" />
+            </Button3D>
           </div>
         </div>
       </section>
@@ -347,12 +345,10 @@ export default function HomeStagingLandingPage() {
           </Card>
 
           <div className="text-center mt-8">
-              <Link href="#pricing">
-              <Button size="lg" variant="outline">
-                Visualiser ma rénovation
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
+            <Button3D href="#pricing" variant="secondary">
+              Visualiser ma rénovation
+              <ArrowRight className="h-5 w-5" />
+            </Button3D>
           </div>
         </div>
       </section>
@@ -509,12 +505,10 @@ export default function HomeStagingLandingPage() {
           </div>
 
           <div className="text-center mt-12">
-            <Link href="#pricing">
-              <Button size="lg">
-                Bénéficiez de 3 crédits gratuits
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
+            <Button3D href="#pricing" variant="primary">
+              Bénéficiez de 3 crédits gratuits
+              <ArrowRight className="h-5 w-5" />
+            </Button3D>
           </div>
         </div>
       </section>
