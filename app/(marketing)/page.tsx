@@ -544,9 +544,9 @@ export default function HomeStagingLandingPage() {
                 id: 3,
                 content: (
                   <div>
-                    <p className="font-bold md:text-4xl text-xl text-white">Chambre élégante</p>
+                    <p className="font-bold md:text-4xl text-xl text-white">Salon redécoré</p>
                     <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
-                      Home staging d&apos;une chambre pour maximiser l&apos;attractivité du bien.
+                      Transformation d&apos;un salon avec carrelage spécifique et décoration moderne.
                     </p>
                   </div>
                 ),
