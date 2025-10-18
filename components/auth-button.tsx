@@ -27,7 +27,7 @@ export function AuthButton() {
 
   if (!user) {
     return (
-      <Button onClick={signInWithGoogle} size="sm" className="bg-blue-500 hover:bg-blue-600">
+      <Button onClick={signInWithGoogle} size="lg" className="bg-blue-500 hover:bg-blue-600 px-8 py-4 text-base font-bold">
         Commencer
       </Button>
     )
