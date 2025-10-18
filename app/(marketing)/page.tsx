@@ -525,7 +525,7 @@ export default function HomeStagingLandingPage() {
                   </div>
                 ),
                 className: "md:col-span-2 h-[300px] md:h-[600px]",
-                thumbnail: "/home2.jpg"
+                thumbnail: "/home4.jpg"
               },
               {
                 id: 2,
