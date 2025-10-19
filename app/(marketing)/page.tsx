@@ -84,6 +84,196 @@ export default function HomeStagingLandingPage() {
         </div>
       </section>
 
+      {/* Before/After Demo Section - Home Staging */}
+      <section id="demo" className="py-20 bg-muted/30">
+        <div className="container max-w-6xl mx-auto px-4">
+          <div className="text-center space-y-4 mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold">Home Staging Virtuel</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Transformez une pièce vide en un intérieur meublé et décoré
+            </p>
+          </div>
+
+          <Card className="overflow-hidden max-w-4xl mx-auto">
+            <CardContent className="p-0">
+              <div className="relative w-full h-[400px] bg-gray-100">
+                {/* Image de fond */}
+                <img 
+                  src="/after-furnished-room.jpg" 
+                  alt="Pièce vide"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                
+                {/* Image superposée avec clip */}
+                <div 
+                  className="absolute inset-0"
+                  style={{ clipPath: `inset(0 ${100 - beforeAfterSlider}% 0 0)` }}
+                >
+                  <img 
+                    src="/before-empty-room.jpg" 
+                    alt="Pièce meublée"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                {/* Curseur avec flèches */}
+                <div 
+                  className="absolute top-0 bottom-0 w-1 bg-white shadow-lg cursor-ew-resize z-10"
+                  style={{ left: `${beforeAfterSlider}%` }}
+                  onMouseDown={(e) => {
+                    const container = e.currentTarget.parentElement
+                    const handleMouseMove = (moveEvent: MouseEvent) => {
+                      if (!container) return
+                      const rect = container.getBoundingClientRect()
+                      const x = Math.max(0, Math.min(moveEvent.clientX - rect.left, rect.width))
+                      setBeforeAfterSlider((x / rect.width) * 100)
+                    }
+                    const handleMouseUp = () => {
+                      document.removeEventListener('mousemove', handleMouseMove)
+                      document.removeEventListener('mouseup', handleMouseUp)
+                    }
+                    document.addEventListener('mousemove', handleMouseMove)
+                    document.addEventListener('mouseup', handleMouseUp)
+                  }}
+                  onTouchStart={(e) => {
+                    const container = e.currentTarget.parentElement
+                    const handleTouchMove = (moveEvent: TouchEvent) => {
+                      if (!container) return
+                      const rect = container.getBoundingClientRect()
+                      const x = Math.max(0, Math.min(moveEvent.touches[0].clientX - rect.left, rect.width))
+                      setBeforeAfterSlider((x / rect.width) * 100)
+                    }
+                    const handleTouchEnd = () => {
+                      document.removeEventListener('touchmove', handleTouchMove)
+                      document.removeEventListener('touchend', handleTouchEnd)
+                    }
+                    document.addEventListener('touchmove', handleTouchMove)
+                    document.addEventListener('touchend', handleTouchEnd)
+                  }}
+                >
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center">
+                    <div className="flex gap-0.5">
+                      <div className="w-1 h-3 bg-gray-400"></div>
+                      <div className="w-1 h-3 bg-gray-400"></div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Labels */}
+                <div className="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 rounded text-sm font-medium">
+                  Avant
+                </div>
+                <div className="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded text-sm font-medium">
+                  Après
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <div className="text-center mt-8">
+            <Button3D href="#pricing" variant="primary">
+              Essayer le Home Staging
+              <ArrowRight className="h-5 w-5" />
+            </Button3D>
+          </div>
+        </div>
+      </section>
+
+      {/* Before/After Demo Section - Rénovation */}
+      <section className="py-20">
+        <div className="container max-w-6xl mx-auto px-4">
+          <div className="text-center space-y-4 mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold">Visualisation de Rénovation</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Projetez-vous dans votre bien rénové avant même de commencer les travaux
+            </p>
+          </div>
+
+          <Card className="overflow-hidden max-w-4xl mx-auto">
+            <CardContent className="p-0">
+              <div className="relative w-full h-[400px] bg-gray-100">
+                {/* Image de fond */}
+                <img 
+                  src="/renove-after.jpg" 
+                  alt="Pièce rénovée"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                
+                {/* Image superposée avec clip */}
+                <div 
+                  className="absolute inset-0"
+                  style={{ clipPath: `inset(0 ${100 - renovationSlider}% 0 0)` }}
+                >
+                  <img 
+                    src="/renove.jpg" 
+                    alt="Pièce avant rénovation"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                {/* Curseur avec flèches */}
+                <div 
+                  className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize shadow-xl z-[20]"
+                  style={{ left: `${renovationSlider}%` }}
+                  onMouseDown={(e) => {
+                    const container = e.currentTarget.parentElement
+                    const handleMouseMove = (moveEvent: MouseEvent) => {
+                      if (!container) return
+                      const rect = container.getBoundingClientRect()
+                      const x = Math.max(0, Math.min(moveEvent.clientX - rect.left, rect.width))
+                      setRenovationSlider((x / rect.width) * 100)
+                    }
+                    const handleMouseUp = () => {
+                      document.removeEventListener('mousemove', handleMouseMove)
+                      document.removeEventListener('mouseup', handleMouseUp)
+                    }
+                    document.addEventListener('mousemove', handleMouseMove)
+                    document.addEventListener('mouseup', handleMouseUp)
+                  }}
+                  onTouchStart={(e) => {
+                    const container = e.currentTarget.parentElement
+                    const handleTouchMove = (moveEvent: TouchEvent) => {
+                      if (!container) return
+                      const rect = container.getBoundingClientRect()
+                      const x = Math.max(0, Math.min(moveEvent.touches[0].clientX - rect.left, rect.width))
+                      setRenovationSlider((x / rect.width) * 100)
+                    }
+                    const handleTouchEnd = () => {
+                      document.removeEventListener('touchmove', handleTouchMove)
+                      document.removeEventListener('touchend', handleTouchEnd)
+                    }
+                    document.addEventListener('touchmove', handleTouchMove)
+                    document.addEventListener('touchend', handleTouchEnd)
+                  }}
+                >
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center">
+                    <div className="flex gap-0.5">
+                      <div className="w-1 h-3 bg-gray-400"></div>
+                      <div className="w-1 h-3 bg-gray-400"></div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Labels */}
+                <div className="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 rounded text-sm font-medium z-[10]">
+                  Avant
+                </div>
+                <div className="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded text-sm font-medium z-[10]">
+                  Après
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <div className="text-center mt-8">
+            <Button3D href="#pricing" variant="secondary">
+              Visualiser ma rénovation
+              <ArrowRight className="h-5 w-5" />
+            </Button3D>
+          </div>
+        </div>
+      </section>
+
       {/* Logos Carousel Section */}
       <section className="py-12">
         <div className="container max-w-6xl mx-auto px-4">
@@ -158,184 +348,6 @@ export default function HomeStagingLandingPage() {
                 </div>
               </CardContent>
             </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Before/After Demo Section - Home Staging */}
-      <section id="demo" className="py-20 bg-muted/30">
-        <div className="container max-w-6xl mx-auto px-4">
-          <div className="text-center space-y-4 mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold">Home Staging Virtuel</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Transformez une pièce vide en un intérieur meublé et décoré
-            </p>
-          </div>
-
-          <Card className="overflow-hidden max-w-4xl mx-auto">
-            <CardContent className="p-0">
-              <div className="relative w-full h-[400px] bg-gray-100">
-                {/* Image de fond */}
-                <img 
-                  src="/after-furnished-room.jpg" 
-                  alt="Pièce vide"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-                
-                {/* Image superposée avec clip */}
-                <div 
-                  className="absolute inset-0"
-                  style={{ clipPath: `inset(0 ${100 - beforeAfterSlider}% 0 0)` }}
-                >
-                  <img 
-                    src="/before-empty-room.jpg" 
-                    alt="Pièce meublée"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-
-                {/* Curseur */}
-                <div 
-                  className="absolute top-0 bottom-0 w-1 bg-white shadow-lg cursor-ew-resize z-10"
-                  style={{ left: `${beforeAfterSlider}%` }}
-                  onMouseDown={(e) => {
-                    const container = e.currentTarget.parentElement
-                    const handleMouseMove = (moveEvent: MouseEvent) => {
-                      if (!container) return
-                      const rect = container.getBoundingClientRect()
-                      const x = Math.max(0, Math.min(moveEvent.clientX - rect.left, rect.width))
-                      setBeforeAfterSlider((x / rect.width) * 100)
-                    }
-                    const handleMouseUp = () => {
-                      document.removeEventListener('mousemove', handleMouseMove)
-                      document.removeEventListener('mouseup', handleMouseUp)
-                    }
-                    document.addEventListener('mousemove', handleMouseMove)
-                    document.addEventListener('mouseup', handleMouseUp)
-                  }}
-                  onTouchStart={(e) => {
-                    const container = e.currentTarget.parentElement
-                    const handleTouchMove = (moveEvent: TouchEvent) => {
-                      if (!container) return
-                      const rect = container.getBoundingClientRect()
-                      const x = Math.max(0, Math.min(moveEvent.touches[0].clientX - rect.left, rect.width))
-                      setBeforeAfterSlider((x / rect.width) * 100)
-                    }
-                    const handleTouchEnd = () => {
-                      document.removeEventListener('touchmove', handleTouchMove)
-                      document.removeEventListener('touchend', handleTouchEnd)
-                    }
-                    document.addEventListener('touchmove', handleTouchMove)
-                    document.addEventListener('touchend', handleTouchEnd)
-                  }}
-                >
-                </div>
-
-                {/* Labels */}
-                <div className="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 rounded text-sm font-medium">
-                  Avant
-                </div>
-                <div className="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded text-sm font-medium">
-                  Après
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <div className="text-center mt-8">
-            <Button3D href="#pricing" variant="primary">
-              Essayer le Home Staging
-              <ArrowRight className="h-5 w-5" />
-            </Button3D>
-          </div>
-        </div>
-      </section>
-
-      {/* Before/After Demo Section - Rénovation */}
-      <section className="py-20">
-        <div className="container max-w-6xl mx-auto px-4">
-          <div className="text-center space-y-4 mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold">Visualisation de Rénovation</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Projetez-vous dans votre bien rénové avant même de commencer les travaux
-            </p>
-          </div>
-
-          <Card className="overflow-hidden max-w-4xl mx-auto">
-            <CardContent className="p-0">
-              <div className="relative w-full h-[400px] bg-gray-100">
-                {/* Image de fond */}
-                <img 
-                  src="/renove-after.jpg" 
-                  alt="Pièce rénovée"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-                
-                {/* Image superposée avec clip */}
-                <div 
-                  className="absolute inset-0"
-                  style={{ clipPath: `inset(0 ${100 - renovationSlider}% 0 0)` }}
-                >
-                  <img 
-                    src="/renove.jpg" 
-                    alt="Pièce avant rénovation"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-
-                {/* Curseur */}
-                <div 
-                  className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize shadow-xl z-[20]"
-                  style={{ left: `${renovationSlider}%` }}
-                  onMouseDown={(e) => {
-                    const container = e.currentTarget.parentElement
-                    const handleMouseMove = (moveEvent: MouseEvent) => {
-                      if (!container) return
-                      const rect = container.getBoundingClientRect()
-                      const x = Math.max(0, Math.min(moveEvent.clientX - rect.left, rect.width))
-                      setRenovationSlider((x / rect.width) * 100)
-                    }
-                    const handleMouseUp = () => {
-                      document.removeEventListener('mousemove', handleMouseMove)
-                      document.removeEventListener('mouseup', handleMouseUp)
-                    }
-                    document.addEventListener('mousemove', handleMouseMove)
-                    document.addEventListener('mouseup', handleMouseUp)
-                  }}
-                  onTouchStart={(e) => {
-                    const container = e.currentTarget.parentElement
-                    const handleTouchMove = (moveEvent: TouchEvent) => {
-                      if (!container) return
-                      const rect = container.getBoundingClientRect()
-                      const x = Math.max(0, Math.min(moveEvent.touches[0].clientX - rect.left, rect.width))
-                      setRenovationSlider((x / rect.width) * 100)
-                    }
-                    const handleTouchEnd = () => {
-                      document.removeEventListener('touchmove', handleTouchMove)
-                      document.removeEventListener('touchend', handleTouchEnd)
-                    }
-                    document.addEventListener('touchmove', handleTouchMove)
-                    document.addEventListener('touchend', handleTouchEnd)
-                  }}
-                >
-                </div>
-
-                {/* Labels */}
-                <div className="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 rounded text-sm font-medium z-[10]">
-                  Avant
-                </div>
-                <div className="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded text-sm font-medium z-[10]">
-                  Après
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <div className="text-center mt-8">
-            <Button3D href="#pricing" variant="secondary">
-              Visualiser ma rénovation
-              <ArrowRight className="h-5 w-5" />
-            </Button3D>
           </div>
         </div>
       </section>
