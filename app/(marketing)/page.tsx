@@ -211,7 +211,7 @@ export default function HomeStagingLandingPage() {
                   />
                 </div>
 
-                {/* Curseur avec flèches */}
+                {/* Curseur */}
                 <div 
                   className="absolute top-0 bottom-0 w-1 bg-white shadow-lg cursor-ew-resize z-10"
                   style={{ left: `${renovationSlider}%` }}
