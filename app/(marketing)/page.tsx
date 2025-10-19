@@ -213,7 +213,7 @@ export default function HomeStagingLandingPage() {
 
                 {/* Curseur avec flèches */}
                 <div 
-                  className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize shadow-xl z-[20]"
+                  className="absolute top-0 bottom-0 w-1 bg-white shadow-lg cursor-ew-resize z-10"
                   style={{ left: `${renovationSlider}%` }}
                   onMouseDown={(e) => {
                     const container = e.currentTarget.parentElement
@@ -255,10 +255,10 @@ export default function HomeStagingLandingPage() {
                 </div>
 
                 {/* Labels */}
-                <div className="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 rounded text-sm font-medium z-[10]">
+                <div className="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 rounded text-sm font-medium">
                   Avant
                 </div>
-                <div className="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded text-sm font-medium z-[10]">
+                <div className="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded text-sm font-medium">
                   Après
                 </div>
               </div>
