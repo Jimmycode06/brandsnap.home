@@ -385,6 +385,20 @@ export function HomeStagingGenerator() {
               </p>
             </div>
 
+            {/* Prompt Preview */}
+            <div className="space-y-2">
+              <Label>Prompt envoyé à l&apos;IA</Label>
+              <textarea
+                value={finalPrompt}
+                readOnly
+                rows={4}
+                className="w-full rounded-md border bg-muted px-3 py-2 text-sm text-muted-foreground"
+              />
+              <p className="text-xs text-muted-foreground">
+                Ce texte est généré automatiquement selon vos choix et sera utilisé pour la transformation.
+              </p>
+            </div>
+
             {/* Aspect Ratio Selector */}
             <div className="space-y-2">
               <Label>Format de l'image</Label>
