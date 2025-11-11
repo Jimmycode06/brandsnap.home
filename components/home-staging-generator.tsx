@@ -22,10 +22,34 @@ import { useCredits, CREDIT_COSTS } from '@/contexts/credit-context'
 import { useAuth } from '@/contexts/auth-context'
 import { supabase } from '@/lib/supabase'
 
+const STYLE_PRESETS = [
+  {
+    id: 'scandinave',
+    label: 'Scandinave — clair, naturel, chaleureux',
+    prompt: 'Style scandinave lumineux, matériaux naturels, ambiance chaleureuse'
+  },
+  {
+    id: 'moderne',
+    label: 'Moderne — design, lignes épurées, tons neutres',
+    prompt: 'Style moderne design aux lignes épurées, tons neutres et élégants'
+  },
+  {
+    id: 'industriel',
+    label: 'Industriel — bois, métal, ambiance loft',
+    prompt: 'Style industriel avec bois et métal, esprit loft urbain'
+  },
+  {
+    id: 'boheme',
+    label: 'Bohème chic — rotin, plantes, ambiance détente',
+    prompt: 'Style bohème chic avec rotin, plantes vertes et ambiance détente'
+  }
+] as const
+
 export function HomeStagingGenerator() {
   const [mediaFiles, setMediaFiles] = useState<File[]>([])
   const [mediaPreviews, setMediaPreviews] = useState<string[]>([])
   const [prompt, setPrompt] = useState('')
+  const [selectedStyle, setSelectedStyle] = useState<(typeof STYLE_PRESETS)[number]['id'] | null>(null)
   const [aspectRatio, setAspectRatio] = useState<'21:9' | '1:1' | '4:3' | '3:2' | '2:3' | '5:4' | '4:5' | '3:4' | '16:9' | '9:16'>('16:9')
   const [isGenerating, setIsGenerating] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -288,6 +312,39 @@ export function HomeStagingGenerator() {
                   ))}
                 </div>
               )}
+            </div>
+
+            {/* Style Preset Selector */}
+            <div className="space-y-2">
+              <Label>Style prédéfini (optionnel)</Label>
+              <Select
+                value={selectedStyle ?? undefined}
+                onValueChange={(value) => {
+                  setSelectedStyle(value as (typeof STYLE_PRESETS)[number]['id'])
+                  const preset = STYLE_PRESETS.find((item) => item.id === value)
+                  if (preset) {
+                    setPrompt((prev) => {
+                      if (!prev.trim()) return preset.prompt
+                      if (prev.includes(preset.prompt)) return prev
+                      return `${preset.prompt}. ${prev}`
+                    })
+                  }
+                }}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Choisir un style d'intérieur" />
+                </SelectTrigger>
+                <SelectContent>
+                  {STYLE_PRESETS.map((preset) => (
+                    <SelectItem key={preset.id} value={preset.id}>
+                      {preset.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <p className="text-xs text-muted-foreground">
+                Ajoute automatiquement une description de style modifiable ci-dessous.
+              </p>
             </div>
 
             {/* Text Input */}
