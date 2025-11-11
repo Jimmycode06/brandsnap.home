@@ -3,9 +3,7 @@
 import { useState, useCallback, useMemo, useRef } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { 
   Upload,
@@ -25,22 +23,22 @@ import { supabase } from '@/lib/supabase'
 const STYLE_PRESETS = [
   {
     id: 'scandinave',
-    label: 'Scandinave — clair, naturel, chaleureux',
+    label: 'Scandinave',
     prompt: 'Style scandinave lumineux, matériaux naturels, ambiance chaleureuse'
   },
   {
     id: 'moderne',
-    label: 'Moderne — design, lignes épurées, tons neutres',
+    label: 'Moderne',
     prompt: 'Style moderne design aux lignes épurées, tons neutres et élégants'
   },
   {
     id: 'industriel',
-    label: 'Industriel — bois, métal, ambiance loft',
+    label: 'Industriel',
     prompt: 'Style industriel avec bois et métal, esprit loft urbain'
   },
   {
     id: 'boheme',
-    label: 'Bohème chic — rotin, plantes, ambiance détente',
+    label: 'Bohème chic',
     prompt: 'Style bohème chic avec rotin, plantes vertes et ambiance détente'
   }
 ] as const
@@ -316,34 +314,32 @@ export function HomeStagingGenerator() {
 
             {/* Style Preset Selector */}
             <div className="space-y-2">
-              <Label>Style prédéfini (optionnel)</Label>
-              <Select
-                value={selectedStyle ?? undefined}
-                onValueChange={(value) => {
-                  setSelectedStyle(value as (typeof STYLE_PRESETS)[number]['id'])
-                  const preset = STYLE_PRESETS.find((item) => item.id === value)
-                  if (preset) {
-                    setPrompt((prev) => {
-                      if (!prev.trim()) return preset.prompt
-                      if (prev.includes(preset.prompt)) return prev
-                      return `${preset.prompt}. ${prev}`
-                    })
-                  }
-                }}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Choisir un style d'intérieur" />
-                </SelectTrigger>
-                <SelectContent>
-                  {STYLE_PRESETS.map((preset) => (
-                    <SelectItem key={preset.id} value={preset.id}>
+              <Label>Style rapide (optionnel)</Label>
+              <div className="grid grid-cols-2 gap-2">
+                {STYLE_PRESETS.map((preset) => {
+                  const isActive = selectedStyle === preset.id
+                  return (
+                    <Button
+                      key={preset.id}
+                      type="button"
+                      variant={isActive ? 'default' : 'outline'}
+                      className={`justify-start ${isActive ? 'bg-blue-600 hover:bg-blue-600 text-white shadow-[0_2px_0_0_rgba(37,99,235,0.6)]' : ''}`}
+                      onClick={() => {
+                        setSelectedStyle(preset.id)
+                        setPrompt((prev) => {
+                          if (!prev.trim()) return preset.prompt
+                          if (prev.includes(preset.prompt)) return prev
+                          return `${preset.prompt}. ${prev}`
+                        })
+                      }}
+                    >
                       {preset.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+                    </Button>
+                  )
+                })}
+              </div>
               <p className="text-xs text-muted-foreground">
-                Ajoute automatiquement une description de style modifiable ci-dessous.
+                Ajoute le style sélectionné à la description ci-dessous (modifiable).
               </p>
             </div>
 
