@@ -15,7 +15,8 @@ import {
   AlertCircle,
   X,
   Zap,
-  Home
+  Home,
+  RefreshCcw
 } from 'lucide-react'
 import { useCredits, CREDIT_COSTS } from '@/contexts/credit-context'
 import { useAuth } from '@/contexts/auth-context'
@@ -44,11 +45,15 @@ const STYLE_PRESETS = [
   }
 ] as const
 
+const REFRESH_PROMPT =
+  "Rafraîchissement complet du sol au plafond : suppression des éléments vétustes, nouveaux revêtements, menuiseries modernisées et éclairage contemporain"
+
 export function HomeStagingGenerator() {
   const [mediaFiles, setMediaFiles] = useState<File[]>([])
   const [mediaPreviews, setMediaPreviews] = useState<string[]>([])
-  const [prompt, setPrompt] = useState('')
+  const [customDescription, setCustomDescription] = useState('')
   const [selectedStyle, setSelectedStyle] = useState<(typeof STYLE_PRESETS)[number]['id'] | null>(null)
+  const [refreshEnabled, setRefreshEnabled] = useState(false)
   const [aspectRatio, setAspectRatio] = useState<'21:9' | '1:1' | '4:3' | '3:2' | '2:3' | '5:4' | '4:5' | '3:4' | '16:9' | '9:16'>('16:9')
   const [isGenerating, setIsGenerating] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -63,6 +68,20 @@ export function HomeStagingGenerator() {
   const maxFiles = 3
   const acceptTypes = useMemo(() => /^(image\/(png|jpg|jpeg|webp))$/, [])
   const maxSizeMb = 15
+
+  const selectedStylePrompt = useMemo(() => {
+    if (!selectedStyle) return ''
+    const preset = STYLE_PRESETS.find((item) => item.id === selectedStyle)
+    return preset?.prompt ?? ''
+  }, [selectedStyle])
+
+  const finalPrompt = useMemo(() => {
+    const parts: string[] = []
+    if (selectedStylePrompt) parts.push(selectedStylePrompt)
+    if (refreshEnabled) parts.push(REFRESH_PROMPT)
+    if (customDescription.trim()) parts.push(customDescription.trim())
+    return parts.join('. ').replace(/\s+/g, ' ').trim()
+  }, [selectedStylePrompt, refreshEnabled, customDescription])
 
 
   const handleAddFiles = useCallback((files: FileList | null) => {
@@ -150,8 +169,8 @@ export function HomeStagingGenerator() {
       return
     }
 
-    if (!prompt.trim()) {
-      setError('Veuillez décrire le style d\'intérieur souhaité')
+    if (!finalPrompt.trim()) {
+      setError('Sélectionnez un style ou ajoutez une description pour lancer la génération')
       return
     }
 
@@ -177,7 +196,7 @@ export function HomeStagingGenerator() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          prompt: prompt.trim(),
+          prompt: finalPrompt,
           image_urls: resizedPreviews,
         }),
       })
@@ -197,7 +216,7 @@ export function HomeStagingGenerator() {
             await supabase.from('generations').insert({
               user_id: user.id,
               type: 'home-staging',
-              prompt: prompt.trim(),
+              prompt: finalPrompt,
               image_url: data.image_url
             })
           } catch (saveError) {
@@ -212,7 +231,7 @@ export function HomeStagingGenerator() {
     } finally {
       setIsGenerating(false)
     }
-  }, [mediaFiles, mediaPreviews, prompt, aspectRatio, credits, canAfford, deductCredits, creditCost, dims, user])
+  }, [mediaFiles, mediaPreviews, finalPrompt, canAfford, deductCredits, creditCost, dims, user])
 
   const handleDownload = useCallback(async () => {
     if (!resultUrl) return
@@ -243,7 +262,9 @@ export function HomeStagingGenerator() {
     setResultUrl(null)
     setMediaFiles([])
     setMediaPreviews([])
-    setPrompt('')
+    setCustomDescription('')
+    setSelectedStyle(null)
+    setRefreshEnabled(false)
     setError(null)
   }, [])
 
@@ -315,7 +336,7 @@ export function HomeStagingGenerator() {
 
             {/* Style Preset Selector */}
             <div className="space-y-2">
-              <Label>Style rapide (optionnel)</Label>
+              <Label>Styles rapides (optionnel)</Label>
               <div className="grid grid-cols-2 gap-2">
                 {STYLE_PRESETS.map((preset) => {
                   const isActive = selectedStyle === preset.id
@@ -326,12 +347,7 @@ export function HomeStagingGenerator() {
                       variant={isActive ? 'default' : 'outline'}
                       className={`justify-start ${isActive ? 'bg-blue-600 hover:bg-blue-600 text-white shadow-[0_2px_0_0_rgba(37,99,235,0.6)]' : ''}`}
                       onClick={() => {
-                        setSelectedStyle(preset.id)
-                        setPrompt((prev) => {
-                          if (!prev.trim()) return preset.prompt
-                          if (prev.includes(preset.prompt)) return prev
-                          return `${preset.prompt}. ${prev}`
-                        })
+                        setSelectedStyle(isActive ? null : preset.id)
                       }}
                     >
                       {preset.label}
@@ -339,24 +355,33 @@ export function HomeStagingGenerator() {
                   )
                 })}
               </div>
+              <Button
+                type="button"
+                variant={refreshEnabled ? 'default' : 'outline'}
+                className={`w-full justify-start gap-2 ${refreshEnabled ? 'bg-purple-600 hover:bg-purple-600 text-white shadow-[0_2px_0_0_rgba(147,51,234,0.6)]' : ''}`}
+                onClick={() => setRefreshEnabled((prev) => !prev)}
+              >
+                <RefreshCcw className="h-4 w-4" />
+                Rafraîchir entièrement la pièce (sol au plafond)
+              </Button>
               <p className="text-xs text-muted-foreground">
-                Ajoute le style sélectionné à la description ci-dessous (modifiable).
+                Le texte final s&apos;adapte automatiquement selon vos sélections. Ajoutez des précisions ci-dessous si besoin.
               </p>
             </div>
 
             {/* Text Input */}
             <div className="space-y-2">
-              <Label htmlFor="prompt">Description du style d&apos;intérieur*</Label>
+              <Label htmlFor="prompt">Description supplémentaire (optionnel)</Label>
               <textarea
                 id="prompt"
                 rows={3}
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                placeholder="Ex: Salon moderne avec canapé gris, table basse en bois, plantes vertes, éclairage chaleureux, style scandinave"
+                value={customDescription}
+                onChange={(e) => setCustomDescription(e.target.value)}
+                placeholder="Précisez les éléments à conserver, les couleurs souhaitées, le mobilier à intégrer..."
                 className="w-full rounded-md border bg-background px-3 py-2 text-sm outline-none ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               />
               <p className="text-xs text-muted-foreground">
-                💡 Soyez précis : mobilier, couleurs, style, ambiance...
+                💡 Ajoutez des précisions personnalisées (mobilier, couleurs, ambiance...).
               </p>
             </div>
 
@@ -389,7 +414,7 @@ export function HomeStagingGenerator() {
               </Button>
               <Button
                 onClick={handleGenerate}
-                disabled={isGenerating || mediaFiles.length === 0 || !prompt.trim() || !canAfford(creditCost)}
+                disabled={isGenerating || mediaFiles.length === 0 || !finalPrompt.trim() || !canAfford(creditCost)}
                 className="flex-1 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600"
               >
                 {isGenerating ? (
