@@ -115,7 +115,6 @@ export default function Page() {
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
           <div className="flex-1 space-y-4">
-            <h2 className="text-3xl font-bold tracking-tight">Home Staging Virtuel</h2>
             <p className="text-sm text-muted-foreground">Transformez vos pièces vides en intérieurs meublés et décorés avec l&apos;IA.</p>
             <HomeStagingGenerator />
           </div>
